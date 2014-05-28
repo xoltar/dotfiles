@@ -1,0 +1,6 @@
+let mapleader = " "
+noremap <Leader>gi gg /import<cr>  
+set showcmd
+noremap ; :
+set smartcase
+

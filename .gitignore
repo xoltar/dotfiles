@@ -2,3 +2,9 @@
 *.swp
 *.pid
 *.log
+*~
+*.hi
+*.elc
+*.o
+*.a
+*.errors
