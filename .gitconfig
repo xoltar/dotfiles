@@ -127,3 +127,5 @@
     # }}}
         [rerere]
         enabled = true
+[push]
+	default = nothing

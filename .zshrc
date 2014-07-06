@@ -7,6 +7,8 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="bureau"
 
+setopt EXTENDED_GLOB
+
 # Example aliases
 alias zshconfig="vim ~/.zshrc"
 alias sshconfig="vim ~/.ssh/config"
@@ -15,7 +17,11 @@ alias vimrc="vim ~/.vimrc"
 alias src="cd ~/src"
 alias iat="cd ~/src/source_code"
 alias lh='ls -a | egrep "^\."'
-
+alias redot="foreach i (~/dotfiles/.*) echo $i; end"
+alias ta="tmux attach"
+alias vncstart="vncserver -geometry 1920x1080"
+#Make windows key work with xmonad
+alias fixkeys='xmodmap -e "add mod4 = Super_L"'
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
