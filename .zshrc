@@ -65,7 +65,7 @@ source $ZSH/oh-my-zsh.sh
 source ~/proxy.sh
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.cabal/bin:$HOME/bin:/usr/lib/jvm/jdk1.7.0_25/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.cabal/bin:$HOME/bin:/usr/lib/jvm/jdk1.7.0_25/bin:$PATH"
 
 export MAVEN_OPTS="-Xms2048m -Xmx4096m -XX:MaxPermSize=4096m -XX:PermSize=4096m"
 
@@ -87,3 +87,5 @@ export EDITOR=vim
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
