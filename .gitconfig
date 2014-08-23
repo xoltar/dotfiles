@@ -129,3 +129,6 @@
         enabled = true
 [push]
 	default = nothing
+[user]
+	name = Bryn Keller
+	email = xoltar@xoltar.org
