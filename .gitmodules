@@ -1,0 +1,30 @@
+[submodule ".vim/bundle/neocomplcache.vim"]
+	path = .vim/bundle/neocomplcache.vim
+	url = https://github.com/Shougo/neocomplcache.vim
+[submodule ".vim/bundle/haskellmode-vim"]
+	path = .vim/bundle/haskellmode-vim
+	url = https://github.com/lukerandall/haskellmode-vim
+[submodule ".vim/bundle/ghcmod-vim"]
+	path = .vim/bundle/ghcmod-vim
+	url = https://github.com/eagletmt/ghcmod-vim
+[submodule ".vim/bundle/neco-ghc"]
+	path = .vim/bundle/neco-ghc
+	url = https://github.com/ujihisa/neco-ghc
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic/
+[submodule ".vim/bundle/guard"]
+	path = .vim/bundle/guard
+	url = https://github.com/guard/guard/
+[submodule ".vim/bundle/guard-shell"]
+	path = .vim/bundle/guard-shell
+	url = https://github.com/guard/guard-shell
+[submodule ".vim/bundle/ctrlp.vim"]
+	path = .vim/bundle/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule ".vim/bundle/nerdcommenter"]
+	path = .vim/bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter
