@@ -20,6 +20,8 @@ set wildignore+=*/target/**
 set wildignore+=*/RPMS/**
 set smartcase
 
+set ignorecase
+
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '(^/usr/|/target/|/javascripts/)',
   \ 'file': '\v\.(zip|jar|class|exe|so|dll|min\.js)$'
