@@ -67,7 +67,7 @@ if [[ -f ~/proxy.sh ]] then;
 fi
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.cabal/bin:$HOME/bin:/usr/lib/jvm/jdk1.7.0_25/bin:$PATH"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.cabal/bin:$HOME/bin:/usr/lib/jvm/jdk1.7.0_25/bin:$PATH:$HOME/gocode/bin"
 
 export MAVEN_OPTS="-Xms2048m -Xmx4096m -XX:MaxPermSize=4096m -XX:PermSize=4096m"
 

@@ -2,6 +2,9 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
+set background=dark
+colorscheme solarized
+
 "for minibufexplorer
 "let g:miniBufExplMapWindowNavVim = 1
 "let g:miniBufExplMapWindowNavArrows = 1
@@ -71,3 +74,12 @@ map <leader>h :wincmd h<CR>
 map <leader>j :wincmd j<CR>
 map <leader>k :wincmd k<CR>
 map <leader>l :wincmd l<CR>
+map <leader>b :buffers
+
+"scroll by rows, not lines
+nmap j gj
+nmap k gk
+
+nnoremap <leader>l :setlocal number!<CR>:setlocal relativenumber!<CR>
+nnoremap <leader>o :set paste!<CR>
+
