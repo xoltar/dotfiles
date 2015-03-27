@@ -67,7 +67,7 @@ if [[ -f ~/proxy.sh ]] then;
 fi
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.cabal/bin:$HOME/bin:/usr/lib/jvm/jdk1.7.0_25/bin:$PATH:$HOME/gocode/bin"
+export PATH="$HOME/gocode/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:usr/lib/jvm/jdk1.7.0_25/bin:$PATH"
 
 export MAVEN_OPTS="-Xms2048m -Xmx4096m -XX:MaxPermSize=4096m -XX:PermSize=4096m"
 
@@ -90,4 +90,6 @@ export EDITOR=vim
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export GOPATH=~/gocode

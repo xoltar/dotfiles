@@ -1,5 +1,6 @@
 execute pathogen#infect()
 syntax on
+filetype on
 filetype plugin indent on
 
 set background=dark
@@ -27,7 +28,7 @@ set ignorecase
 
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '(^/usr/|/target/|/javascripts/)',
-  \ 'file': '\v\.(zip|jar|class|exe|so|dll|min\.js)$'
+  \ 'file': '\v\.(zip|jar|class|exe|o|hi|so|dll|min\.js)$'
   \ }
 
 set number
@@ -76,10 +77,12 @@ map <leader>k :wincmd k<CR>
 map <leader>l :wincmd l<CR>
 map <leader>b :buffers
 
+map <leader><tab> :tabnext<cr>
+map <leader><S-tab> :tabprevious<cr>
 "scroll by rows, not lines
 nmap j gj
 nmap k gk
 
-nnoremap <leader>l :setlocal number!<CR>:setlocal relativenumber!<CR>
+nnoremap <leader>n :setlocal number!<CR>:setlocal relativenumber!<CR>
 nnoremap <leader>o :set paste!<CR>
 

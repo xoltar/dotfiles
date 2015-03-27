@@ -3,7 +3,8 @@
 
 [alias]
 	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-
+	ec = config --global -e
+	up = !git pull --rebase --prune $@ && git submodule update --init --recursive
 
 [color "branch"]
 	    current = red reverse
@@ -35,6 +36,12 @@
 # }}}
 # alias {{{
 [alias]
+	bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
+	bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
+	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+	checkpoint = commit -am "checkpoint"
+	undo = reset HEAD~1 --mixed
+	cob = checkout -b
 	st = status -s
         cl = clone
         ci = commit
