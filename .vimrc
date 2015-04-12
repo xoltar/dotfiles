@@ -27,7 +27,7 @@ set smartcase
 set ignorecase
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '(^/usr/|/target/|/javascripts/)',
+  \ 'dir':  '\v[\/](usr|/target|javascripts|dist)$',
   \ 'file': '\v\.(zip|jar|class|exe|o|hi|so|dll|min\.js)$'
   \ }
 
