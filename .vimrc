@@ -6,6 +6,13 @@ filetype plugin indent on
 set background=dark
 colorscheme solarized
 
+set colorcolumn=80
+"set wrapmargin=80
+
+"no idea what there are but they make 'vapRETgq' select 
+"the current paragraph and reformat it
+set formatoptions=1crql 
+
 "for minibufexplorer
 "let g:miniBufExplMapWindowNavVim = 1
 "let g:miniBufExplMapWindowNavArrows = 1
@@ -27,7 +34,7 @@ set smartcase
 set ignorecase
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](usr|/target|javascripts|dist)$',
+  \ 'dir':  '\v[\/](usr|target|javascripts|dist|build|_build)$',
   \ 'file': '\v\.(zip|jar|class|exe|o|hi|so|dll|min\.js)$'
   \ }
 
@@ -40,6 +47,10 @@ set smartcase
 ":au FocusGained * :set relativenumber
 "autocmd InsertEnter * :set number
 "autocmd InsertLeave * :set relativenumber
+
+" configure browser for haskell_doc.vim
+let g:haddock_browser = "firefox"
+
 
 "Set up tab handling. Unfortunately, ctrl tab doesn't work 
 ""over a terminal.
