@@ -9,19 +9,20 @@ ZSH_THEME="bureau"
 
 setopt EXTENDED_GLOB
 
-# Example aliases
 alias zshconfig="vim ~/.zshrc"
+alias zshlocal="vim ~/.zsh-local"
 alias sshconfig="vim ~/.ssh/config"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias vimrc="vim ~/.vimrc"
 alias src="cd ~/src"
-alias iat="cd ~/src/source_code"
 alias lh='ls -a | egrep "^\."'
 alias redot="foreach i (~/dotfiles/.*) echo $i; end"
 alias ta="tmux attach"
 alias vncstart="vncserver -geometry 1920x1080"
 #Make windows key work with xmonad
 alias fixkeys='xmodmap -e "add mod4 = Super_L"'
+
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -59,15 +60,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git cabal mvn)
 
 source $ZSH/oh-my-zsh.sh
-if [[ -f ~/proxy.sh ]] then;
-	source ~/proxy.sh
-fi
 # User configuration
 
-export PATH="$HOME/gocode/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:usr/lib/jvm/jdk1.7.0_25/bin:$PATH"
 
 export MAVEN_OPTS="-Xms2048m -Xmx4096m -XX:MaxPermSize=4096m -XX:PermSize=4096m"
 
@@ -90,6 +87,13 @@ export EDITOR=vim
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-export PATH="~/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 export GOPATH=~/gocode
+
+export PATH="$PATH:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$GOCODE/bin:~/.cabal/bin:~/.rvm/bin" # Add RVM to PATH for scripting
+
+
+
+if [[ -f ~/.zsh-local ]]; then
+	. ~/.zsh-local
+fi
+
