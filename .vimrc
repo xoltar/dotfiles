@@ -6,6 +6,10 @@ filetype plugin indent on
 set background=dark
 colorscheme solarized
 
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+
 set colorcolumn=80
 "set wrapmargin=80
 
@@ -57,14 +61,11 @@ let g:haddock_browser = "firefox"
 set showtabline=2               " File tabs allways visible
 :nmap <C-S-tab> :tabprevious<cr>
 :nmap <C-tab> :tabnext<cr>
-:nmap <C-t> :tabnew<cr>
-:map <C-t> :tabnew<cr>
 :map <C-S-tab> :tabprevious<cr>
 :map <C-tab> :tabnext<cr>
 :map <C-w> :tabclose<cr>
 :imap <C-S-tab> <ESC>:tabprevious<cr>i
 :imap <C-tab> <ESC>:tabnext<cr>i
-:imap <C-t> <ESC>:tabnew<cr>
 
 "Ctrl S saves - oh wait, this doesn't work on a terminal either.
 :nmap <C-s> :w<cr>
@@ -73,7 +74,6 @@ set showtabline=2               " File tabs allways visible
 let mapleader = " "
 noremap <Leader>gc /\(class\|object\|trait\) 
 noremap <Leader>gi gg /import<cr>  
-noremap <Leader>o :tabnew<cr>:e  
 nnoremap <silent> <Leader>t :NERDTreeFocus<CR>
 
 set showcmd
@@ -86,14 +86,58 @@ map <leader>h :wincmd h<CR>
 map <leader>j :wincmd j<CR>
 map <leader>k :wincmd k<CR>
 map <leader>l :wincmd l<CR>
-map <leader>b :buffers
-
+map <leader>b :buffers<cr>
+map <leader>ct :!ctags -R .<cr>
+map <leader>m :make<cr>
 map <leader><tab> :tabnext<cr>
 map <leader><S-tab> :tabprevious<cr>
 "scroll by rows, not lines
 nmap j gj
 nmap k gk
 
+
+
 nnoremap <leader>n :setlocal number!<CR>:setlocal relativenumber!<CR>
-nnoremap <leader>o :set paste!<CR>
+
+nnoremap <Leader>q :q<CR>
+
+"This stuff comes from http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity"
+
+" * I search things usual way using /something
+" * I hit cs, replace first match, and hit <Esc>
+" * I hit n.n.n.n.n. reviewing and replacing all matches
+
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+
+"leader-y and leader-p copy and paste to system clipboard"
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+"leader-o opens with ctrlp"
+noremap <Leader>o :tabnew<cr>:CtrlP<cr>  
+
+"leader-w saves"
+nnoremap <Leader>w :w<CR>
+
+"leader-leader enters visual line mode"
+nmap <Leader><Leader> V
+
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
+
 
