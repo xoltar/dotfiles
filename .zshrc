@@ -89,7 +89,7 @@ export EDITOR=vim
 
 export GOPATH=~/gocode
 
-export PATH="$PATH:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$GOCODE/bin:~/.cabal/bin:~/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$GOCODE/bin:~/.cabal/bin:~/.rvm/bin" # Add RVM to PATH for scripting
 
 
 

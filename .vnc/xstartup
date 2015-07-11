@@ -8,7 +8,6 @@
 xrdb -merge $HOME/.Xresources
 xsetroot -solid midnightblue
 feh --bg-scale ~/Downloads/Mega-lattice.jpg
-vncconfig
 
 #gnome-session --session=ubuntu-2d
 #gnome-session --session=gnome-classic &
@@ -19,6 +18,7 @@ gnome-terminal &
 #Make windows key work with xmonad
 xmodmap -e "add mod4 = Super_L" &
 
+vncconfig
 #xfce4-session &
 #vncconfig -iconic &
 #x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &

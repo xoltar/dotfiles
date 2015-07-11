@@ -3,8 +3,8 @@ syntax on
 filetype on
 filetype plugin indent on
 
-set background=dark
-colorscheme solarized
+"set background=dark
+"colorscheme solarized
 
 set expandtab
 set shiftwidth=2
@@ -38,7 +38,7 @@ set smartcase
 set ignorecase
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](usr|target|javascripts|dist|build|_build)$',
+  \ 'dir':  '\v[\/](usr|target|javascripts|dist|build|_build|_site|_cache)$',
   \ 'file': '\v\.(zip|jar|class|exe|o|hi|so|dll|min\.js)$'
   \ }
 
@@ -95,6 +95,8 @@ map <leader><S-tab> :tabprevious<cr>
 nmap j gj
 nmap k gk
 
+nmap f12 :cnext
+nmap <S-f12> :cprev
 
 
 nnoremap <leader>n :setlocal number!<CR>:setlocal relativenumber!<CR>
