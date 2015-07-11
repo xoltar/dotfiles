@@ -9,7 +9,7 @@ ZSH_THEME="bureau"
 
 setopt EXTENDED_GLOB
 
-alias zshconfig="vim ~/.zshrc"
+alias zshrc="vim ~/.zshrc"
 alias zshlocal="vim ~/.zsh-local"
 alias sshconfig="vim ~/.ssh/config"
 alias ohmyzsh="vim ~/.oh-my-zsh"
