@@ -148,8 +148,8 @@ inoremap <C-V> <esc>Pi
 inoremap <C-X> <esc>ddi
 inoremap <C-C> <esc>yyi
 
-:nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-:nnoremap <leader>sv :source $MYVIMRC<cr>
+:nnoremap <leader>ev :vsplit ~/dotfiles/.vim/vimrc<cr>
+:nnoremap <leader>sv :source ~/dotfiles/.vim/vimrc<cr>
 
 "Abbreviations
 :iabbrev adn and
@@ -208,3 +208,17 @@ augroup END
 :set statusline+=%L        " Total lines
 noremap ss :write<cr>
 " }}}
+
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Courier\ New\ 11
+  elseif has("gui_photon")
+    set guifont=Courier\ New:s11
+  elseif has("gui_kde")
+    set guifont=Courier\ New/11/-1/5/50/0/0/0/1/0
+  elseif has("x11")
+    set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
+  else
+    set guifont=Consolas:h14:cDEFAULT
+  endif
+endif
