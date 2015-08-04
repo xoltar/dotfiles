@@ -211,7 +211,7 @@ noremap ss :write<cr>
 
 if has("gui_running")
   if has("gui_gtk2")
-    set guifont=Courier\ New\ 11
+    set guifont=Inconsolata\ Medium\ 14
   elseif has("gui_photon")
     set guifont=Courier\ New:s11
   elseif has("gui_kde")
