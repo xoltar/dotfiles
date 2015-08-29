@@ -1,6 +1,224 @@
-let mapleader = " "
-noremap <Leader>gi gg /import<cr>  
-set showcmd
-noremap ; :
+execute pathogen#infect()
+filetype plugin indent on
+
+"set background=dark
+"colorscheme solarized
+
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+
+set colorcolumn=80
+"set wrapmargin=80
+
+"no idea what there are but they make 'vapRETgq' select
+"the current paragraph and reformat it
+set formatoptions=1crql
+
+"for minibufexplorer
+"let g:miniBufExplMapWindowNavVim = 1
+"let g:miniBufExplMapWindowNavArrows = 1
+"let g:miniBufExplMapCTabSwitchBufs = 1
+"let g:miniBufExplModSelTarget = 1
+
+
+let g:neocomplcache_enable_at_startup = 1
+" Set no max file limit
+ let g:ctrlp_max_files = 0
+" Search from current directory instead of project root
+ let g:ctrlp_working_path_mode = 0
+
+" Ignore these directories
+set wildignore+=*/target/**
+set wildignore+=*/RPMS/**
 set smartcase
 
+set ignorecase
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](usr|target|javascripts|dist|build|_build|_site|_cache)$',
+  \ 'file': '\v\.(zip|jar|class|exe|o|hi|so|dll|min\.js)$'
+  \ }
+
+set number
+set relativenumber
+
+set smartcase
+
+":au FocusLost * :set number
+":au FocusGained * :set relativenumber
+"autocmd InsertEnter * :set number
+"autocmd InsertLeave * :set relativenumber
+
+" configure browser for haskell_doc.vim
+let g:haddock_browser = "firefox"
+
+
+"Set up tab handling. Unfortunately, ctrl tab doesn't work
+""over a terminal.
+set showtabline=2               " File tabs allways visible
+:noremap <C-S-tab> :tabprevious<cr>
+:noremap <C-tab> :tabnext<cr>
+:noremap <C-w> :tabclose<cr>
+:inoremap <C-S-tab> <ESC>:tabprevious<cr>i
+:inoremap <C-tab> <ESC>:tabnext<cr>i
+
+"Ctrl S saves - oh wait, this doesn't work on a terminal either.
+:noremap <C-s> :w<cr>
+:inoremap <C-s> <esc>:w<cr>i
+
+let mapleader = " "
+noremap <Leader>gc /\(class\|object\|trait\)
+noremap <Leader>gi gg /import<cr>
+nnoremap <silent> <Leader>t :NERDTreeFocus<CR>
+
+set showcmd
+
+
+noremap ; :
+"since I don't actually use semicolon at all.. noremap : ;
+
+noremap <leader>h :wincmd h<CR>
+noremap <leader>j :wincmd j<CR>
+noremap <leader>k :wincmd k<CR>
+noremap <leader>l :wincmd l<CR>
+noremap <leader>b :buffers<cr>
+noremap <leader>ct :!ctags -R .<cr>
+noremap <leader>m :make<cr>
+noremap <leader><tab> :tabnext<cr>
+noremap <leader><S-tab> :tabprevious<cr>
+"scroll by rows, not lines
+nnoremap j gj
+nnoremap k gk
+
+nnoremap f12 :cnext
+nnoremap <S-f12> :cprev
+
+
+nnoremap <leader>n :setlocal number!<CR>:setlocal relativenumber!<CR>
+
+nnoremap <Leader>q :q<CR>
+
+"This stuff comes from http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity"
+
+" * I search things usual way using /something
+" * I hit cs, replace first match, and hit <Esc>
+" * I hit n.n.n.n.n. reviewing and replacing all matches
+
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+
+"leader-y and leader-p copy and paste to system clipboard"
+vnoremap <Leader>y "+y
+vnoremap <Leader>d "+d
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
+vnoremap <Leader>p "+p
+vnoremap <Leader>P "+P
+
+"leader-o opens with ctrlp"
+noremap <Leader>o :tabnew<cr>:CtrlP<cr>
+
+"leader-w saves"
+nnoremap <Leader>w :w<CR>
+
+"leader-leader enters visual line mode"
+nnoremap <Leader><Leader> V
+
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
+
+"TODO - make a vimrc_local or something for this?
+noremap <C-K> :pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<cr>
+inoremap <C-K> <c-o>:pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<cr>
+
+noremap <C-L> :!cpplint.py % \| copen<cr>
+
+inoremap <C-V> <esc>Pi
+inoremap <C-X> <esc>ddi
+inoremap <C-C> <esc>yyi
+
+:nnoremap <leader>ev :vsplit ~/dotfiles/.vim/vimrc<cr>
+:nnoremap <leader>sv :source ~/dotfiles/.vim/vimrc<cr>
+
+"Abbreviations
+:iabbrev adn and
+:iabbrev tihs this
+:iabbrev teh the
+:iabbrev hif Hi Folks
+"Quotes
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>
+vnoremap <leader>' <esc>`<i'<esc>`>la'<esc>
+vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
+
+noremap H ^
+noremap L $
+
+inoremap jk <esc>
+"inoremap <esc> <nop>
+
+" Vimscript file settings ---------------------- {{{
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
+" html file settings ---------------------- {{{
+augroup filetype_html
+  autocmd!
+  autocmd BufWritePre,BufRead *.html :normal gg=G
+  autocmd BufNewFile,BufRead *.html setlocal nowrap
+augroup END
+" }}}
+
+" c++ file settings ---------------------- {{{
+augroup filetype_cpp
+  autocmd!
+  autocmd FileType cpp :iabbrev <buffer> ret return;<left>
+  autocmd FileType cpp :iabbrev <buffer> return NOPENOPENOPE
+  autocmd FileType cpp :iabbrev <buffer> reic reinterpret_cast<><left><left><right>
+  autocmd FileType cpp setlocal foldmethod=syntax
+augroup END
+" }}}
+
+" status line ---------------------- {{{
+"set statusline=%f\ %m\ %y\ (\ %c:%l\ /\ %L\ )
+:set statusline=%f         " Path to the file
+:set statusline+=\
+:set statusline+=%m        " modification marker
+:set statusline+=\
+:set statusline+=%y        " file type
+:set statusline+=%=        " Switch to the right side
+:set statusline+=%c        " column
+:set statusline+=:         " separator
+:set statusline+=%l        " Current line
+:set statusline+=/         " Separator
+:set statusline+=%L        " Total lines
+noremap ss :write<cr>
+" }}}
+
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ Medium\ 14
+  elseif has("gui_photon")
+    set guifont=Courier\ New:s11
+  elseif has("gui_kde")
+    set guifont=Courier\ New/11/-1/5/50/0/0/0/1/0
+  elseif has("x11")
+    set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
+  else
+    set guifont=Consolas:h14:cDEFAULT
+  endif
+endif
