@@ -1,6 +1,9 @@
 execute pathogen#infect()
 filetype plugin indent on
 
+"set background=dark
+"colorscheme solarized
+highlight Normal ctermbg=darkgrey
 
 set expandtab
 set shiftwidth=2
@@ -35,7 +38,7 @@ set ignorecase
 
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](usr|target|javascripts|dist|build|_build|_site|_cache)$',
-  \ 'file': '\v\.(zip|jar|class|exe|o|hi|so|dll|min\.js)$'
+  \ 'file': '\v\.(zip|jar|class|exe|o|hi|so|dll|ibc|min\.js)$'
   \ }
 
 set number
@@ -209,7 +212,7 @@ noremap ss :write<cr>
 
 if has("gui_running")
   if has("gui_gtk2")
-    set guifont=Courier\ New\ 11
+    set guifont=Inconsolata\ Medium\ 14
   elseif has("gui_photon")
     set guifont=Courier\ New:s11
   elseif has("gui_kde")
