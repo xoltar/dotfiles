@@ -21,9 +21,9 @@ set formatoptions=1crql
 
 let g:neocomplcache_enable_at_startup = 1
 " Set no max file limit
- let g:ctrlp_max_files = 0
+let g:ctrlp_max_files = 0
 " Search from current directory instead of project root
- let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 0
 
 " Ignore these directories
 set wildignore+=*/target/**
@@ -218,9 +218,16 @@ if has("gui_running")
     set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
   else
     set guifont=Consolas:h14:cDEFAULT
+    set background=dark
+    colorscheme solarized
   endif
 else
   highlight Normal ctermbg=darkgrey
   set background=dark
 
 endif
+
+nnoremap <leader>work :cd %:p:h
+
+nnoremap <leader>dark :set background=dark<cr>
+nnoremap <leader>light :set background=light<cr>
