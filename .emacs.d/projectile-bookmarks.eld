@@ -1,1 +1,0 @@
-("~/dotfiles/" "~/src/source_code/" "~/src/fix/")
