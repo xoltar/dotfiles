@@ -222,7 +222,7 @@ if has("gui_running")
     colorscheme solarized
   endif
 else
-  highlight Normal ctermbg=darkgrey
+  highlight Normal ctermbg=black
   set background=dark
 
 endif

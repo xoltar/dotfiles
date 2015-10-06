@@ -19,6 +19,7 @@
      ;; ----------------------------------------------------------------
      ;; auto-completion
      ;; better-defaults
+     elm
      emacs-lisp
      git
      markdown
@@ -56,7 +57,7 @@ before layers configuration."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
-   evil-escape-key-sequence "jk"
+;;   evil-escape-key-sequence "jk"
    ;; Either `vim' or `emacs'. Evil is always enabled but if the variable
    ;; is `emacs' then the `holy-mode' is enabled at startup.
    dotspacemacs-editing-style 'vim
@@ -172,12 +173,29 @@ before layers configuration."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
+  ;;(global-hl-line-mode -1) ; Disable current line highlight
+  (global-linum-mode) ; Show line numbers by default
+  (key-chord-mode 1)
+  (key-chord-define evil-normal-state-map  "ss" 'basic-save-buffer)
+  (key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)
+  (key-chord-define evil-normal-state-map  "  " 'evil-visual-line)
+
+  (define-key evil-normal-state-map (kbd "H") (kbd "^")) ; H goes to beginning of the line
+  (define-key evil-normal-state-map (kbd "L") (kbd "$")) ; L goes to end of the line
+  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
   (global-hl-line-mode -1) ; Disable current line highlight
   (global-linum-mode) ; Show line numbers by default
-  ;;(evil-map visual "ss" "<ESC>:w")
-  (key-chord-mode 1)
-  (key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)
- )
+  ;; Make linums relative by default
+  (with-eval-after-load 'linum
+    (linum-relative-toggle))
+  (setq-default
+    flycheck-scalastyle-jar "~/lib/scalastyle_2.11.jar"
+   
+   )
+  ;;(required 'ido)
+  ;;:w(ido-mode s)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
