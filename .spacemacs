@@ -169,12 +169,20 @@ before layers configuration."
   ;; User initialization goes here
   )
 
+(defun my-up ()
+  (interactive)
+  (evil-normal-state)
+  (evil-previous-visual-line))
+(defun my-down ()
+  (interactive)
+  (evil-normal-state)
+  (evil-next-visual-line))
+
 (defun dotspacemacs/config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
   ;;(global-hl-line-mode -1) ; Disable current line highlight
-  (global-linum-mode) ; Show line numbers by default
   (key-chord-mode 1)
   (key-chord-define evil-normal-state-map  "ss" 'basic-save-buffer)
   (key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)
@@ -184,14 +192,18 @@ layers configuration."
   (define-key evil-normal-state-map (kbd "L") (kbd "$")) ; L goes to end of the line
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+
+
+  ;; If I use arrow keys to go to another line, switch to normal mode
+  (define-key evil-insert-state-map (kbd "<up>") 'my-up)
+  (define-key evil-insert-state-map (kbd "<down>") 'my-down)
   (global-hl-line-mode -1) ; Disable current line highlight
-  (global-linum-mode) ; Show line numbers by default
+  ;; (global-linum-mode) ; Show line numbers by default
   ;; Make linums relative by default
-  (with-eval-after-load 'linum
-    (linum-relative-toggle))
+  (global-linum-mode nil)
+  ;; (linum-relative-toggle)
   (setq-default
     flycheck-scalastyle-jar "~/lib/scalastyle_2.11.jar"
-   
    )
   ;;(required 'ido)
   ;;:w(ido-mode s)
