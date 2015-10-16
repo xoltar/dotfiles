@@ -145,8 +145,6 @@ inoremap <C-V> <esc>Pi
 inoremap <C-X> <esc>ddi
 inoremap <C-C> <esc>yyi
 
-:nnoremap <leader>ev :vsplit ~/dotfiles/.vim/vimrc<cr>
-:nnoremap <leader>sv :source ~/dotfiles/.vim/vimrc<cr>
 
 "Abbreviations
 :iabbrev adn and
@@ -158,6 +156,14 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>
 vnoremap <leader>' <esc>`<i'<esc>`>la'<esc>
 vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
+"Because Spacemacs
+noremap <leader>fs :write<cr>
+noremap <leader>bb :CtrlP<cr>
+noremap <leader>fed :vsplit ~/dotfiles/.vim/vimrc<cr>
+noremap <leader>feR :source ~/dotfiles/.vim/vimrc<cr>
+
+nnoremap <leader>ev :vsplit ~/dotfiles/.vim/vimrc<cr>
+nnoremap <leader>sv :source ~/dotfiles/.vim/vimrc<cr>
 
 noremap H ^
 noremap L $
