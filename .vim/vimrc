@@ -72,9 +72,6 @@ nnoremap <silent> <Leader>t :NERDTreeFocus<CR>
 set showcmd
 
 
-noremap ; :
-"since I don't actually use semicolon at all.. noremap : ;
-
 noremap <leader>h :wincmd h<CR>
 noremap <leader>j :wincmd j<CR>
 noremap <leader>k :wincmd k<CR>
@@ -93,8 +90,6 @@ nnoremap <S-f12> :cprev
 
 
 nnoremap <leader>n :setlocal number!<CR>:setlocal relativenumber!<CR>
-
-nnoremap <Leader>q :q<CR>
 
 "This stuff comes from http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity"
 
@@ -116,13 +111,6 @@ vnoremap <Leader>P "+P
 
 "leader-o opens with ctrlp"
 noremap <Leader>o :tabnew<cr>:CtrlP<cr>  
-
-"leader-w saves"
-nnoremap <Leader>w :w<CR>
-
-"leader-leader enters visual line mode"
-nnoremap <Leader><Leader> V
-
 
 " vp doesn't replace paste buffer
 function! RestoreRegister()
@@ -158,17 +146,15 @@ vnoremap <leader>' <esc>`<i'<esc>`>la'<esc>
 vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
 "Because Spacemacs
 noremap <leader>fs :write<cr>
+noremap <leader>qq :q<cr>
 noremap <leader>bb :CtrlP<cr>
 noremap <leader>fed :vsplit ~/dotfiles/.vim/vimrc<cr>
 noremap <leader>feR :source ~/dotfiles/.vim/vimrc<cr>
 
-nnoremap <leader>ev :vsplit ~/dotfiles/.vim/vimrc<cr>
-nnoremap <leader>sv :source ~/dotfiles/.vim/vimrc<cr>
-
 noremap H ^
 noremap L $
 
-inoremap jk <esc>
+inoremap fd <esc>
 "inoremap <esc> <nop>
 
 " Vimscript file settings ---------------------- {{{

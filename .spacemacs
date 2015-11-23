@@ -19,16 +19,17 @@
      ;; ----------------------------------------------------------------
      ;; auto-completion
      ;; better-defaults
-     elm
+     ;; elm
      emacs-lisp
      git
      markdown
      org
      haskell
-     rust
+     ess
+     ;; rust
      c-c++
-     fsharp
-     go
+     ;; fsharp
+     ;; go
      html
      python
      scala
@@ -178,7 +179,7 @@ before layers configuration."
   (evil-normal-state)
   (evil-next-visual-line))
 
-(defun dotspacemacs/config ()
+(defun dotspacemacs/user-config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
