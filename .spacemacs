@@ -32,10 +32,12 @@
      ;; go
      html
      python
+     ;; ranger
      scala
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            ;; shell-default-shell 'eshell
+            shell-default-height 30
+            shell-default-position 'bottom)
      syntax-checking
      version-control
      )
@@ -62,6 +64,8 @@ before layers configuration."
    ;; Either `vim' or `emacs'. Evil is always enabled but if the variable
    ;; is `emacs' then the `holy-mode' is enabled at startup.
    dotspacemacs-editing-style 'vim
+   ;; Don't use https, doesn't work behind proxy
+   dotspacemacs-elpa-https nil
    ;; If non nil output loading progress in `*Messages*' buffer.
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
