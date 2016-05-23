@@ -2,6 +2,7 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
   (setq-default
@@ -17,16 +18,19 @@
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; auto-completion
+     asciidoc
+     auto-completion
      ;; better-defaults
      ;; elm
+     coq
      emacs-lisp
      git
      markdown
      org
      haskell
+     erc
      ess
-     ;; rust
+     rust
      c-c++
      ;; fsharp
      ;; go
@@ -38,14 +42,16 @@
             ;; shell-default-shell 'eshell
             shell-default-height 30
             shell-default-position 'bottom)
+     spell-checking
      syntax-checking
      version-control
+     gtags
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(idris-mode key-chord)
+   dotspacemacs-additional-packages '(idris-mode key-chord rust-mode racer flycheck-rust)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -58,6 +64,10 @@
 This function is called at the very startup of Spacemacs initialization
 before layers configuration."
   ;; This setq-default sexp is an exhaustive list of all the supported
+;;(setq url-proxy-services
+  ;;    '(("http"     . "http://proxy.jf.intel.com:911")
+  ;;      ("https"    . "http://proxy.jf.intel.com:912")
+  ;;      ("no_proxy" . "^.*intel.com")))
   ;; spacemacs settings.
   (setq-default
 ;;   evil-escape-key-sequence "jk"
@@ -66,6 +76,9 @@ before layers configuration."
    dotspacemacs-editing-style 'vim
    ;; Don't use https, doesn't work behind proxy
    dotspacemacs-elpa-https nil
+   ;; longer timeout for downloading packages
+   ;; dotspacemacs-elpa-timeout 50
+
    ;; If non nil output loading progress in `*Messages*' buffer.
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -182,6 +195,12 @@ before layers configuration."
   (interactive)
   (evil-normal-state)
   (evil-next-visual-line))
+(defun my-split-line ()
+  (interactive)
+  (delete-forward-char 1)
+  (split-line)
+  (evil-next-visual-line)
+  (indent-for-tab-command))
 
 (defun dotspacemacs/user-config ()
   "Configuration function.
@@ -190,14 +209,18 @@ layers configuration."
   ;;(global-hl-line-mode -1) ; Disable current line highlight
   (key-chord-mode 1)
   (key-chord-define evil-normal-state-map  "ss" 'basic-save-buffer)
-  (key-chord-define evil-insert-state-map  "jk" 'evil-normal-state)
-  (key-chord-define evil-normal-state-map  "  " 'evil-visual-line)
+  (key-chord-define evil-insert-state-map  "fd" 'evil-normal-state)
+  ;; (key-chord-define evil-normal-state-map  "  " 'evil-visual-line)
 
   (define-key evil-normal-state-map (kbd "H") (kbd "^")) ; H goes to beginning of the line
   (define-key evil-normal-state-map (kbd "L") (kbd "$")) ; L goes to end of the line
   (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+  (define-key evil-normal-state-map (kbd "K") 'my-split-line)
 
+  ;; Zoom in and out like a browser, everyone's doing it...
+  (define-key evil-normal-state-map (kbd "s-+") 'zoom-frm-in)
+  (define-key evil-normal-state-map (kbd "s-_") 'zoom-frm-out)
 
   ;; If I use arrow keys to go to another line, switch to normal mode
   (define-key evil-insert-state-map (kbd "<up>") 'my-up)
@@ -206,13 +229,108 @@ layers configuration."
   ;; (global-linum-mode) ; Show line numbers by default
   ;; Make linums relative by default
   (global-linum-mode nil)
-  ;; (linum-relative-toggle)
+  (linum-relative-toggle)
   (setq-default
     flycheck-scalastyle-jar "~/lib/scalastyle_2.11.jar"
    )
-  ;;(required 'ido)
-  ;;:w(ido-mode s)
+  (setq-default rust-enable-racer t)
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (autoload 'rust-mode "rust-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+  (require 'projectile)
+  (add-to-list 'projectile-globally-ignored-directories "CMakeFiles")
+  (add-to-list 'projectile-globally-ignored-files "*.egg-info" "*.o")
+  (add-to-list 'grep-find-ignored-directories "CMakeFiles")
+  (custom-set-variables
+   '(initial-frame-alist (quote ((fullscreen . maximized)))))
+
+  (let ((frame-zoom-font-difference 6))
+    (zoom-frm-in))
+  (require 'org-inlinetask)
+  ;; (require 'ido)
+  ;; (ido-mode t)
+;; allow for export=>beamer by placing
+
+  (setq-default dotspacemacs-configuration-layers
+                '((c-c++ :variables
+                         c-c++-default-mode-for-headers 'c++-mode)))
+
+;; #+LaTeX_CLASS: beamer in org files
+(unless (boundp 'org-export-latex-classes)
+  (setq org-export-latex-classes nil))
+(add-to-list 'org-export-latex-classes
+  ;; beamer class, for presentations
+  '("beamer"
+     "\\documentclass[11pt]{beamer}\n
+      \\mode<{{{beamermode}}}>\n
+      \\usetheme{{{{beamertheme}}}}\n
+      \\usecolortheme{{{{beamercolortheme}}}}\n
+      \\beamertemplateballitem\n
+      \\setbeameroption{show notes}
+      \\usepackage[utf8]{inputenc}\n
+      \\usepackage[T1]{fontenc}\n
+      \\usepackage{hyperref}\n
+      \\usepackage{color}
+      \\usepackage{listings}
+      \\lstset{numbers=none,language=[ISO]C++,tabsize=4,
+  frame=single,
+  basicstyle=\\small,
+  showspaces=false,showstringspaces=false,
+  showtabs=false,
+  keywordstyle=\\color{blue}\\bfseries,
+  commentstyle=\\color{red},
+  }\n
+      \\usepackage{verbatim}\n
+      \\institute{{{{beamerinstitute}}}}\n          
+       \\subject{{{{beamersubject}}}}\n"
+
+     ("\\section{%s}" . "\\section*{%s}")
+     ("\\begin{frame}[fragile]\\frametitle{%s}"
+       "\\end{frame}"
+       "\\begin{frame}[fragile]\\frametitle{%s}"
+       "\\end{frame}")))
+
+  ;; letter class, for formal letters
+
+  (add-to-list 'org-export-latex-classes
+
+  '("letter"
+     "\\documentclass[11pt]{letter}\n
+      \\usepackage[utf8]{inputenc}\n
+      \\usepackage[T1]{fontenc}\n
+      \\usepackage{color}"
+     ("\\section{%s}" . "\\section*{%s}")
+     ("\\subsection{%s}" . "\\subsection*{%s}")
+     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+     ("\\paragraph{%s}" . "\\paragraph*{%s}")
+     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-entities-user
+   (quote
+    (("naturals" "\\mathbb{N}" t "&naturals;" "N" "N" "ℕ")
+     ("integers" "\\mathbb{Z}" t "&integers;" "Z" "Z" "ℤ")
+     ("rationals" "\\mathbb{Q}" t "&Qopf;" "Q" "Q" "ℚ")
+     ("reals" "\\mathbb{R}" t "&reals;" "R" "R" "R")
+     ("complex" "\\mathbb{C}" t "&complexes;" "C" "C" "ℂ")
+     ("qed" "\\qed" t "&#8718;" "[]" "[]" "∎")
+     ("cala" "\\mathcal{A}" nil "&#119860;" "A" "A" "𝐴"))))
+ '(org-latex-pdf-process
+   (quote
+    ("lualatex -interaction nonstopmode -output-directory %o %f" "lualatex -interaction nonstopmode -output-directory %o %f" "lualatex -interaction nonstopmode -output-directory %o %f")))
+ '(org-pretty-entities t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
