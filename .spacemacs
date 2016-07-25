@@ -28,6 +28,7 @@
      markdown
      org
      haskell
+     idris
      ;; erc
      ;; ess
      rust
