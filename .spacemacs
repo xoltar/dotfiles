@@ -13,6 +13,7 @@
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -22,20 +23,22 @@
      auto-completion
      ;; better-defaults
      ;; elm
+     c-c++
      coq
      emacs-lisp
-     git
-     markdown
-     org
-     haskell
-     idris
      ;; erc
      ;; ess
-     rust
-     c-c++
      ;; fsharp
-     ;; go
      html
+     git
+     ;; go
+     haskell
+     idris
+     ;; julia
+     latex
+     markdown
+     org
+     rust
      purescript
      python
      ;; ranger
@@ -241,8 +244,9 @@ layers configuration."
   (autoload 'rust-mode "rust-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
   (require 'projectile)
+  ;; (setq projectile-tags-command "~/bin/ctags -R -e")
   (add-to-list 'projectile-globally-ignored-directories "CMakeFiles")
-  (add-to-list 'projectile-globally-ignored-files "*.egg-info" "*.o")
+  (add-to-list 'projectile-globally-ignored-files "*.egg-info" "*.o" )
   (add-to-list 'grep-find-ignored-directories "CMakeFiles")
   (custom-set-variables
    '(initial-frame-alist (quote ((fullscreen . maximized)))))
@@ -325,9 +329,24 @@ layers configuration."
      ("complex" "\\mathbb{C}" t "&complexes;" "C" "C" "ℂ")
      ("qed" "\\qed" t "&#8718;" "[]" "[]" "∎")
      ("cala" "\\mathcal{A}" nil "&#119860;" "A" "A" "𝐴"))))
+
+ ;; '(org-latex-pdf-process
+ ;;   (quote ("texi2dvi --pdf --clean --verbose --batch %f"
+ ;;           "bibtex %b"
+ ;;           "texi2dvi --pdf --clean --verbose --batch %f"
+ ;;           "texi2dvi --pdf --clean --verbose --batch %f")))
+
+
  '(org-latex-pdf-process
    (quote
-    ("lualatex -interaction nonstopmode -output-directory %o %f" "lualatex -interaction nonstopmode -output-directory %o %f" "lualatex -interaction nonstopmode -output-directory %o %f")))
+    ("lualatex -interaction nonstopmode -output-directory %o %f"
+     "biber %b"
+     "lualatex -interaction nonstopmode -output-directory %o %f"
+     "lualatex -interaction nonstopmode -output-directory %o %f")))
+
+ ;; '(org-latex-pdf-process
+ ;;    '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f  %f"))
+
  '(org-pretty-entities t))
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
