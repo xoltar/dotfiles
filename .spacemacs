@@ -111,11 +111,12 @@ before layers configuration."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
-                               :weight normal
-                               :width normal
-                               :powerline-scale 1.1)
+   ;; dotspacemacs-default-font '("Source Code Pro"
+   ;;                             :size 13
+   ;;                             :weight normal
+   ;;                             :width normal
+   ;;                             :powerline-scale 1.1)
+
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -256,12 +257,12 @@ layers configuration."
   (require 'org-inlinetask)
   ;; (require 'ido)
   ;; (ido-mode t)
-;; allow for export=>beamer by placing
-
+  (setq org-latex-listings t)
   (setq-default dotspacemacs-configuration-layers
                 '((c-c++ :variables
                          c-c++-default-mode-for-headers 'c++-mode)))
 
+  ;; allow for export=>beamer by placing
 ;; #+LaTeX_CLASS: beamer in org files
 (unless (boundp 'org-export-latex-classes)
   (setq org-export-latex-classes nil))
@@ -311,7 +312,12 @@ layers configuration."
      ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
      ("\\paragraph{%s}" . "\\paragraph*{%s}")
      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-  )
+
+;; (require 'ob-python)
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((python . t)))
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -329,25 +335,22 @@ layers configuration."
      ("complex" "\\mathbb{C}" t "&complexes;" "C" "C" "ℂ")
      ("qed" "\\qed" t "&#8718;" "[]" "[]" "∎")
      ("cala" "\\mathcal{A}" nil "&#119860;" "A" "A" "𝐴"))))
-
- ;; '(org-latex-pdf-process
- ;;   (quote ("texi2dvi --pdf --clean --verbose --batch %f"
- ;;           "bibtex %b"
- ;;           "texi2dvi --pdf --clean --verbose --batch %f"
- ;;           "texi2dvi --pdf --clean --verbose --batch %f")))
-
-
  '(org-latex-pdf-process
    (quote
-    ("lualatex -interaction nonstopmode -output-directory %o %f"
+    ("xelatex -interaction nonstopmode -output-directory %o %f"
      "biber %b"
-     "lualatex -interaction nonstopmode -output-directory %o %f"
-     "lualatex -interaction nonstopmode -output-directory %o %f")))
-
+     "xelatex -interaction nonstopmode -output-directory %o %f"
+     "xelatex -interaction nonstopmode -output-directory %o %f")))
  ;; '(org-latex-pdf-process
- ;;    '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f  %f"))
-
- '(org-pretty-entities t))
+ ;;   (quote
+ ;;    ("lualatex -interaction nonstopmode -output-directory %o %f"
+ ;;     "biber %b"
+ ;;     "lualatex -interaction nonstopmode -output-directory %o %f"
+ ;;     "lualatex -interaction nonstopmode -output-directory %o %f")))
+ '(org-pretty-entities t)
+ '(package-selected-packages
+   (quote
+    (dash-functional alert log4e gntp markdown-mode prop-menu parent-mode haml-mode gitignore-mode fringe-helper git-gutter+ seq pos-tip pkg-info epl flx anzu evil goto-chg undo-tree diminish web-completion-data ghc company-math math-symbol-lists packed pythonic f s markup-faces avy popup package-build powerline spinner org hydra projectile git-gutter flyspell-correct rust-mode bind-key auto-complete auctex anaconda-mode company iedit smartparens bind-map highlight flycheck haskell-mode yasnippet request helm helm-core magit magit-popup git-commit with-editor async purescript-mode auctex-latexmk yapfify yaml-mode xterm-color ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit spacemacs-theme spaceline solarized-theme smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters racer quelpa pyvenv pytest pyenv-mode py-isort pug-mode psci psc-ide popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint less-css-mode key-chord intero info+ indent-guide idris-mode ido-vertical-mode hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-hoogle helm-gtags helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump disaster diff-hl define-word cython-mode company-web company-statistics company-ghci company-ghc company-coq company-cabal company-c-headers company-auctex company-anaconda column-enforce-mode cmm-mode cmake-mode clean-aindent-mode clang-format cargo bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adoc-mode adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -355,3 +358,9 @@ layers configuration."
 ;;  ;; If there is more than one, they won't work right.
 ;;  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
 ;;  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
