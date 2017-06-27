@@ -58,3 +58,9 @@
 [submodule ".emacs.d"]
 	path = .emacs.d
 	url = https://github.com/syl20bnr/spacemacs
+[submodule ".vim/bundle/vim-latex-live-preview"]
+	path = .vim/bundle/vim-latex-live-preview
+	url = https://github.com/xuhdev/vim-latex-live-preview.git
+[submodule ".vim/bundle/purescript-vim"]
+	path = .vim/bundle/purescript-vim
+	url = https://github.com/raichoo/purescript-vim.git

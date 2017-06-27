@@ -17,7 +17,8 @@ set formatoptions=1crql
 "let g:miniBufExplMapWindowNavArrows = 1
 "let g:miniBufExplMapCTabSwitchBufs = 1
 "let g:miniBufExplModSelTarget = 1
-
+autocmd Filetype tex setl updatetime=1000
+let g:livepreview_previewer = 'open -a Preview'
 
 let g:neocomplcache_enable_at_startup = 1
 " Set no max file limit
@@ -208,6 +209,10 @@ if has("gui_running")
     set guifont=Courier\ New/11/-1/5/50/0/0/0/1/0
   elseif has("x11")
     set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h18
+    set background=dark
+    colorscheme solarized
   else
     set guifont=Consolas:h14:cDEFAULT
     set background=dark

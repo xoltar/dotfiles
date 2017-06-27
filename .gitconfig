@@ -145,3 +145,5 @@
 	insteadOf = ssh://github.com/ghc/packages/
 [url "ssh://"]
 	insteadof = git://
+[url "http://public.kitware.com/"]
+	insteadOf = git://public.kitware.com/
