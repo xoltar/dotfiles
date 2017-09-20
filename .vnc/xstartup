@@ -1,25 +1,14 @@
-#!/bin/bash
+#!/bin/sh
 
 # Uncomment the following two lines for normal desktop:
-#unset SESSION_MANAGER
-#exec /etc/X11/xinit/xinitrc
-#[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
-#[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
-xrdb -merge $HOME/.Xresources
-xsetroot -solid midnightblue
-feh --bg-scale ~/Pictures/Mega-lattice.jpg
+# unset SESSION_MANAGER
+# exec /etc/X11/xinit/xinitrc
+gnome-session --session=ubuntu-2d &
 
-#gnome-session --session=ubuntu-2d
-#gnome-session --session=gnome-classic &
-
-xmonad &
-
-gnome-terminal &
-#Make windows key work with xmonad
-xmodmap -e "add mod4 = Super_L" &
-
-vncconfig
-#xfce4-session &
-#vncconfig -iconic &
-#x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
-#x-window-manager &
+# [ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+#xsetroot -solid grey
+startxfce4 &
+vncconfig -iconic &
+x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+x-window-manager &

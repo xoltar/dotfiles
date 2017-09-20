@@ -9,6 +9,7 @@ ZSH_THEME="bureau"
 
 setopt EXTENDED_GLOB
 
+alias podp=popd
 alias zshrc="vim ~/.zshrc"
 alias zshlocal="vim ~/.zsh-local"
 alias sshconfig="vim ~/.ssh/config"
