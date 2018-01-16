@@ -64,3 +64,6 @@
 [submodule ".vim/bundle/purescript-vim"]
 	path = .vim/bundle/purescript-vim
 	url = https://github.com/raichoo/purescript-vim.git
+[submodule ".vim/bundle/vimtex"]
+	path = .vim/bundle/vimtex
+	url = https://github.com/lervag/vimtex
