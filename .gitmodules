@@ -58,24 +58,9 @@
 [submodule ".emacs.d"]
 	path = .emacs.d
 	url = https://github.com/syl20bnr/spacemacs
-[submodule ".vim/bundle/vim-latex-live-preview"]
-	path = .vim/bundle/vim-latex-live-preview
-	url = https://github.com/xuhdev/vim-latex-live-preview.git
 [submodule ".vim/bundle/purescript-vim"]
 	path = .vim/bundle/purescript-vim
 	url = https://github.com/raichoo/purescript-vim.git
 [submodule ".vim/bundle/vimtex"]
 	path = .vim/bundle/vimtex
 	url = https://github.com/lervag/vimtex
-[submodule ".vim/bundle/vim-pandoc"]
-	path = .vim/bundle/vim-pandoc
-	url = https://github.com/vim-pandoc/vim-pandoc
-[submodule ".vim/bundle/vim-pandoc-syntax"]
-	path = .vim/bundle/vim-pandoc-syntax
-	url = https://github.com/vim-pandoc/vim-pandoc-syntax
-[submodule ".vim/bundle/coquille"]
-	path = .vim/bundle/coquille
-	url = https://github.com/trefis/coquille.git
-[submodule ".vim/bundle/vimbufsync"]
-	path = .vim/bundle/vimbufsync
-	url = https://github.com/let-def/vimbufsync

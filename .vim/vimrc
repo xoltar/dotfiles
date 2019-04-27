@@ -66,6 +66,7 @@ set showtabline=2               " File tabs allways visible
 :inoremap <C-s> <esc>:w<cr>i
 
 let mapleader = " "
+let maplocalleader = "\\"
 noremap <Leader>gc /\(class\|object\|trait\) 
 noremap <Leader>gi gg /import<cr>  
 nnoremap <silent> <Leader>t :NERDTreeFocus<CR>
@@ -238,3 +239,5 @@ nnoremap <leader>work :cd %:p:h
 
 nnoremap <leader>dark :set background=dark<cr>
 nnoremap <leader>light :set background=light<cr>
+
+let g:python_mode_python = 'python3'

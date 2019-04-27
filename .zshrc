@@ -27,7 +27,6 @@ alias tlh="todo.sh list @home"
 alias vncstart="vncserver -geometry 1920x1080"
 eval "$(fasd --init auto)"
 
-
 #Make windows key work with xmonad
 alias fixkeys='xmodmap -e "add mod4 = Super_L"'
 alias a='fasd -a'        # any
@@ -108,5 +107,4 @@ if [[ -f ~/.zsh-local ]]; then
 fi
 
 
-export SWIVM_DIR="/Users/bkeller/.swivm"
-[ -s "$SWIVM_DIR/swivm.sh" ] && . "$SWIVM_DIR/swivm.sh"  # This loads swivm
+#[ -s "$SWIVM_DIR/swivm.sh" ] && . "$SWIVM_DIR/swivm.sh"  # This loads swivm
