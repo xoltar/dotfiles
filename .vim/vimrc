@@ -179,9 +179,19 @@ augroup filetype_cpp
   autocmd FileType cpp :iabbrev <buffer> ret return;<left>
   autocmd FileType cpp :iabbrev <buffer> return NOPENOPENOPE
   autocmd FileType cpp :iabbrev <buffer> reic reinterpret_cast<><left><left><right>
-  autocmd FileType cpp setlocal foldmethod=syntax
+  "autocmd FileType cpp setlocal foldmethod=syntax
 augroup END
 " }}}
+
+" Coquille
+augroup filetype_coq
+  autocmd!
+  autocmd FileType coq noremap <leader>n :CoqNext<cr>
+  autocmd FileType coq noremap <leader>. :CoqToCursor<cr>
+  autocmd FileType coq noremap <leader>u :CoqUndo<cr>
+  autocmd FileType coq noremap <leader>k :CoqKill<cr>
+
+augroup END
 
 " status line ---------------------- {{{
 "set statusline=%f\ %m\ %y\ (\ %c:%l\ /\ %L\ )

@@ -21,6 +21,9 @@ alias redot="foreach i (~/dotfiles/.*) echo $i; end"
 alias ta="todo.sh add"
 alias td="todo.sh do"
 alias tl="todo.sh list"
+alias tlw="todo.sh list @work"
+alias tli="todo.sh list @idea"
+alias tlh="todo.sh list @home"
 alias vncstart="vncserver -geometry 1920x1080"
 eval "$(fasd --init auto)"
 
@@ -104,3 +107,6 @@ if [[ -f ~/.zsh-local ]]; then
 	. ~/.zsh-local
 fi
 
+
+export SWIVM_DIR="/Users/bkeller/.swivm"
+[ -s "$SWIVM_DIR/swivm.sh" ] && . "$SWIVM_DIR/swivm.sh"  # This loads swivm
