@@ -41,6 +41,7 @@ values."
      ;; better-defaults
      emacs-lisp
      git
+     latex
      markdown
      org
      python
@@ -310,6 +311,10 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (defun up-slightly () (interactive) (scroll-up 2))
+  (defun down-slightly () (interactive) (scroll-down 2))
+  (global-set-key (kbd "<mouse-4>") 'down-slightly)
+  (global-set-key (kbd "<mouse-5>") 'up-slightly)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -320,21 +325,18 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-entities-user
-   (quote
-    (("naturals" "\\mathbb{N}" t "&naturals;" "N" "N" "ℕ")
+   '(("naturals" "\\mathbb{N}" t "&naturals;" "N" "N" "ℕ")
      ("integers" "\\mathbb{Z}" t "&integers;" "Z" "Z" "ℤ")
      ("rationals" "\\mathbb{Q}" t "&Qopf;" "Q" "Q" "ℚ")
      ("reals" "\\mathbb{R}" t "&reals;" "R" "R" "R")
      ("complex" "\\mathbb{C}" t "&complexes;" "C" "C" "ℂ")
      ("qed" "\\qed" t "&#8718;" "[]" "[]" "∎")
-     ("cala" "\\mathcal{A}" nil "&#119860;" "A" "A" "𝐴"))))
+     ("cala" "\\mathcal{A}" nil "&#119860;" "A" "A" "𝐴")))
  '(org-latex-pdf-process
-   (quote
-    ("xelatex -interaction nonstopmode -output-directory %o %f" "biber %b" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f")))
+   '("xelatex -interaction nonstopmode -output-directory %o %f" "biber %b" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
  '(org-pretty-entities t)
-
  '(package-selected-packages
-   '(yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic orgit org-projectile org-pomodoro alert log4e markdown-toc magit-gitflow magit-popup helm-gitignore git-timemachine evil-magit magit git-commit smeargle org-category-capture org-present gntp org-mime org-download mmm-mode markdown-mode htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode transient git-messenger git-link gh-md with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+   '(auctex-latexmk auctex yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic orgit org-projectile org-pomodoro alert log4e markdown-toc magit-gitflow magit-popup helm-gitignore git-timemachine evil-magit magit git-commit smeargle org-category-capture org-present gntp org-mime org-download mmm-mode markdown-mode htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode transient git-messenger git-link gh-md with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
