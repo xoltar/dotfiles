@@ -32,6 +32,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     csv
      yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -357,14 +358,98 @@ you should place your code here."
 (with-eval-after-load 'org
   (setq org-startup-indented t
         org-clock-idle-time 5
-        org-bullets-bullet-list '("#")
-        org-ellipsis "  "
+        ;; org-bullets-bullet-list '("#")
+        ;; org-ellipsis "  "
         org-pretty-entities t
         org-hide-emphasis-markers t
         org-agenda-block-separator ""
         org-fontify-whole-heading-line t
         org-fontify-done-headline t
-        org-fontify-quote-and-verse-blocks t))
+        org-fontify-quote-and-verse-blocks t)
+  
+  ;; Resume clocking task when emacs is restarted
+  (org-clock-persistence-insinuate)
+  ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+  (setq org-clock-persist t)
+  ;; Resume clocking task on clock-in if the clock is open
+  (setq org-clock-in-resume t)
+  ;; Do not prompt to resume an active clock, just resume it
+  (setq org-clock-persist-query-resume nil)
+  ;; Show lot of clocking history so it's easy to pick items off the `C-c I` list
+  (setq org-clock-history-length 23)
+
+  ;; Change tasks to whatever when clocking in
+  (setq org-clock-in-switch-to-state "NEXT")
+  ;; Save clock data and state changes and notes in the LOGBOOK drawer
+  (setq org-clock-into-drawer t)
+  ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks
+  ;; with 0:00 duration
+  (setq org-clock-out-remove-zero-time-clocks t)
+  ;; Clock out when moving task to a done state
+  (setq org-clock-out-when-done t)
+  ;; Enable auto clock resolution for finding open clocks
+  (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+  ;; Include current clocking task in clock reports
+  (setq org-clock-report-include-clocking-task t)
+  ;; use pretty things for the clocktable
+  (setq org-pretty-entities t)
+  (defun eos/org-clock-in ()
+    (interactive)
+    (org-clock-in '(4)))
+
+  (global-set-key (kbd "C-c I") #'eos/org-clock-in)
+  (global-set-key (kbd "C-c O") #'org-clock-out)
+
+
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold)
+              ("MEETING" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "forest green" :weight bold))))
+
+
+;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+(setq org-capture-templates
+      (quote (("t" "todo" entry (file "~/Dropbox/org/notes.org")
+               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("r" "respond" entry (file "~/Dropbox/org/notes.org")
+               "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+              ("n" "note" entry (file "~/Dropbox/org/notes.org")
+               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
+               "* %?\n%U\n" :clock-in t :clock-resume t)
+              ("w" "org-protocol" entry (file "~/Dropbox/org/notes.org")
+               "* TODO Review %c\n%U\n" :immediate-finish t)
+              ("m" "Meeting" entry (file "~/Dropbox/org/notes.org")
+               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+              ("p" "Phone call" entry (file "~/Dropbox/org/notes.org")
+               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+              ("h" "Habit" entry (file "~/Dropbox/org/notes.org")
+               "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+
+
+; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
+
+;; Remove empty LOGBOOK drawers on clock out
+(defun bh/remove-empty-drawer-on-clock-out ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line 0)
+    (org-remove-empty-drawer-at "LOGBOOK" (point))))
+
+(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+
+  )
 
 ;; (setq cedille-path "/Users/bkeller/src/cedille")
 ;; (add-to-list 'load-path cedille-path)
@@ -392,6 +477,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   (quote
+    ("~/Dropbox/org/todo.org" "~/Dropbox/org/the-knowledge.org" "~/Dropbox/org/home.org" "~/Dropbox/org/work.org" "~/Dropbox/org/ph_vs.org" "~/Dropbox/org/notes.org" "~/Dropbox/org/neustrom.org")))
  '(org-entities-user
    (quote
     (("naturals" "\\mathbb{N}" t "&naturals;" "N" "N" "ℕ")
@@ -407,7 +495,7 @@ you should place your code here."
  '(org-pretty-entities t)
  '(package-selected-packages
    (quote
-    (lv slime-company slime common-lisp-snippets transient geiser helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-statistics company-cabal company-c-headers company-auctex company-anaconda auto-yasnippet ac-ispell auto-complete yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic powerline pos-tip purescript-mode dash-functional org-category-capture alert log4e gntp flycheck prop-menu hydra parent-mode projectile pkg-info epl request haml-mode gitignore-mode flx magit magit-popup git-commit ghub treepy graphql with-editor smartparens iedit anzu evil goto-chg highlight diminish ghc haskell-mode yasnippet company-math math-symbol-lists company markdown-mode rust-mode bind-map bind-key packed helm avy helm-core popup async f s auctex-latexmk ws-butler winum which-key web-mode volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit spaceline solarized-theme smeargle slim-mode scss-mode sass-mode restart-emacs rainbow-delimiters racer pug-mode psci psc-ide popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-mime org-download org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative link-hint less-css-mode key-chord intero indent-guide idris-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-hoogle helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag haskell-snippets google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump disaster define-word company-ghci company-ghc company-coq column-enforce-mode cmm-mode cmake-mode clean-aindent-mode clang-format cargo auto-highlight-symbol auto-compile auctex aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (csv-mode lv slime-company slime common-lisp-snippets transient geiser helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-statistics company-cabal company-c-headers company-auctex company-anaconda auto-yasnippet ac-ispell auto-complete yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic powerline pos-tip purescript-mode dash-functional org-category-capture alert log4e gntp flycheck prop-menu hydra parent-mode projectile pkg-info epl request haml-mode gitignore-mode flx magit magit-popup git-commit ghub treepy graphql with-editor smartparens iedit anzu evil goto-chg highlight diminish ghc haskell-mode yasnippet company-math math-symbol-lists company markdown-mode rust-mode bind-map bind-key packed helm avy helm-core popup async f s auctex-latexmk ws-butler winum which-key web-mode volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit spaceline solarized-theme smeargle slim-mode scss-mode sass-mode restart-emacs rainbow-delimiters racer pug-mode psci psc-ide popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-mime org-download org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative link-hint less-css-mode key-chord intero indent-guide idris-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-hoogle helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag haskell-snippets google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump disaster define-word company-ghci company-ghc company-coq column-enforce-mode cmm-mode cmake-mode clean-aindent-mode clang-format cargo auto-highlight-symbol auto-compile auctex aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.

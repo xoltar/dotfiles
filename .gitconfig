@@ -137,8 +137,8 @@
 [push]
 	default = nothing
 [user]
-	name = Bryn Keller
-	email = xoltar@xoltar.org
+	name = Keller, Bryn
+	email = bryn.keller@intel.com
 [url "git://github.com/ghc/packages-"]
 	insteadOf = git://github.com/ghc/packages/
 [url "ssh://github.com/ghc/packages-"]
