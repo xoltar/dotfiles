@@ -61,3 +61,6 @@
 [submodule ".vim/bundle/vimtex"]
 	path = .vim/bundle/vimtex
 	url = https://github.com/lervag/vimtex
+[submodule ".vim/bundle/vim-which-key"]
+	path = .vim/bundle/vim-which-key
+	url = https://github.com/liuchengxu/vim-which-key

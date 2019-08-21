@@ -1,6 +1,11 @@
 execute pathogen#infect()
 filetype plugin indent on
 
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ','
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+
 set expandtab
 set shiftwidth=2
 set softtabstop=2
@@ -29,6 +34,7 @@ let g:ctrlp_working_path_mode = 0
 " Ignore these directories
 set wildignore+=*/target/**
 set wildignore+=*/RPMS/**
+set wildignore+=*.ibc
 set smartcase
 
 set ignorecase
@@ -52,27 +58,9 @@ set smartcase
 let g:haddock_browser = "firefox"
 
 
-"Set up tab handling. Unfortunately, ctrl tab doesn't work 
-""over a terminal.
-set showtabline=2               " File tabs allways visible
-:noremap <C-S-tab> :tabprevious<cr>
-:noremap <C-tab> :tabnext<cr>
-:noremap <C-w> :tabclose<cr>
-:inoremap <C-S-tab> <ESC>:tabprevious<cr>i
-:inoremap <C-tab> <ESC>:tabnext<cr>i
-
-"Ctrl S saves - oh wait, this doesn't work on a terminal either.
-:noremap <C-s> :w<cr>
-:inoremap <C-s> <esc>:w<cr>i
-
-let mapleader = " "
-let maplocalleader = "\\"
-noremap <Leader>gc /\(class\|object\|trait\) 
-noremap <Leader>gi gg /import<cr>  
 nnoremap <silent> <Leader>t :NERDTreeFocus<CR>
 
 set showcmd
-
 
 noremap <leader>h :wincmd h<CR>
 noremap <leader>j :wincmd j<CR>
@@ -125,16 +113,6 @@ function! s:Repl()
 endfunction
 vmap <silent> <expr> p <sid>Repl()
 
-"TODO - make a vimrc_local or something for this?
-noremap <C-K> :pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<cr>
-inoremap <C-K> <c-o>:pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<cr>
-
-noremap <C-L> :!cpplint.py % \| copen<cr>
-
-inoremap <C-V> <esc>Pi
-inoremap <C-X> <esc>ddi
-inoremap <C-C> <esc>yyi
-
 
 "Abbreviations
 :iabbrev adn and
@@ -147,11 +125,16 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>
 vnoremap <leader>' <esc>`<i'<esc>`>la'<esc>
 vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
 "Because Spacemacs
+noremap <leader>fe :e<cr>
+noremap <leader>ff :CtrlPMixed<cr>
 noremap <leader>fs :write<cr>
 noremap <leader>qq :q<cr>
-noremap <leader>bb :CtrlP<cr>
-noremap <leader>fed :vsplit ~/dotfiles/.vim/vimrc<cr>
-noremap <leader>feR :source ~/dotfiles/.vim/vimrc<cr>
+noremap <leader>bb :CtrlPBuffer<cr>
+noremap <leader>wd :hide<cr>
+noremap <leader>w- :split<cr>
+noremap <leader>w/ :vsplit<cr>
+noremap <leader>fed ~/.vim/vimrc<cr>
+noremap <leader>feR :source ~/.vim/vimrc<cr>
 
 noremap H ^
 noremap L $
