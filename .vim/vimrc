@@ -1,3 +1,4 @@
+
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -17,7 +18,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 "
 " " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFocus' }
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -25,6 +26,7 @@ Plug 'idris-hackers/idris-vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'vim-airline/vim-airline'
 Plug 'altercation/vim-colors-solarized'
+"Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 "
