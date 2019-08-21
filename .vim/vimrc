@@ -1,4 +1,51 @@
-execute pathogen#infect()
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+call plug#begin('~/.vim/plugged')
+
+" Make sure you use single quotes
+"
+" " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+" Plug 'junegunn/vim-easy-align'
+"
+" " Any valid git URL is allowed
+" Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+"
+" " Multiple Plug commands can be written in a single line using | separators
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+"
+" " On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'idris-hackers/idris-vim'
+Plug 'liuchengxu/vim-which-key'
+Plug 'vim-airline/vim-airline'
+Plug 'altercation/vim-colors-solarized'
+
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+"
+" " Using a non-master branch
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+"
+" " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+" Plug 'fatih/vim-go', { 'tag': '*' }
+"
+" " Plugin options
+" Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+"
+" " Plugin outside ~/.vim/plugged with post-update hook
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"
+" " Unmanaged plugin (manually installed and updated)
+" Plug '~/my-prototype-plugin'
+"
+" " Initialize plugin system
+call plug#end()
+
 filetype plugin indent on
 
 let g:mapleader = "\<Space>"
@@ -6,12 +53,7 @@ let g:maplocalleader = ','
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
-set expandtab
-set shiftwidth=2
-set softtabstop=2
-
 set colorcolumn=80
-"set wrapmargin=80
 
 "no idea what there are but they make 'vapRETgq' select 
 "the current paragraph and reformat it
@@ -23,7 +65,7 @@ set formatoptions=1crql
 "let g:miniBufExplMapCTabSwitchBufs = 1
 "let g:miniBufExplModSelTarget = 1
 autocmd Filetype tex setl updatetime=1000
-let g:livepreview_previewer = 'open -a Preview'
+"let g:livepreview_previewer = 'open -a Preview'
 
 let g:neocomplcache_enable_at_startup = 1
 " Set no max file limit
@@ -48,11 +90,6 @@ set number
 set relativenumber 
 
 set smartcase
-
-":au FocusLost * :set number
-":au FocusGained * :set relativenumber
-"autocmd InsertEnter * :set number
-"autocmd InsertLeave * :set relativenumber
 
 " configure browser for haskell_doc.vim
 let g:haddock_browser = "firefox"
@@ -119,11 +156,7 @@ vmap <silent> <expr> p <sid>Repl()
 :iabbrev tihs this
 :iabbrev teh the
 :iabbrev hif Hi Folks
-"Quotes
-nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>
-nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>
-vnoremap <leader>' <esc>`<i'<esc>`>la'<esc>
-vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
+
 "Because Spacemacs
 noremap <leader>fe :e<cr>
 noremap <leader>ff :CtrlPMixed<cr>
@@ -168,14 +201,14 @@ augroup END
 " }}}
 
 " Coquille
-augroup filetype_coq
-  autocmd!
-  autocmd FileType coq noremap <leader>n :CoqNext<cr>
-  autocmd FileType coq noremap <leader>. :CoqToCursor<cr>
-  autocmd FileType coq noremap <leader>u :CoqUndo<cr>
-  autocmd FileType coq noremap <leader>k :CoqKill<cr>
+" augroup filetype_coq
+"  autocmd!
+"  autocmd FileType coq noremap <leader>n :CoqNext<cr>
+"  autocmd FileType coq noremap <leader>. :CoqToCursor<cr>
+"  autocmd FileType coq noremap <leader>u :CoqUndo<cr>
+"  autocmd FileType coq noremap <leader>k :CoqKill<cr>
 
-augroup END
+"augroup END
 
 " status line ---------------------- {{{
 "set statusline=%f\ %m\ %y\ (\ %c:%l\ /\ %L\ )
