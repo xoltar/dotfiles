@@ -18,6 +18,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 "
 " " On-demand loading
+Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFocus' }
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-sensible'
