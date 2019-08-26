@@ -178,6 +178,9 @@ noremap L $
 inoremap fd <esc>
 "inoremap <esc> <nop>
 
+" Special rules for python
+au Filetype python setl et ts=4 sw=4
+
 " Vimscript file settings ---------------------- {{{
 augroup filetype_vim
   autocmd!
