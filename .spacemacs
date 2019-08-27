@@ -2,7 +2,6 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
-
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -32,67 +31,50 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     csv
-     yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     agda
-     auto-completion
      helm
+     ;; auto-completion
      ;; better-defaults
-     ;; elm
-     c-c++
-     ;; cedille
-     common-lisp
-     coq
      emacs-lisp
-     ;; erc
-     ;; ess
-     ;; fsharp
-     html
      git
-     ;; go
-     haskell
-     idris
-     ;; julia
-     latex
      markdown
      org
-     rust
-     purescript
      python
-     ;; ranger
-     scheme
-     ;; scala
      ;; (shell :variables
-            ;; shell-default-shell 'eshell
-     ;;       shell-default-height 30
-     ;;       shell-default-position 'bottom)
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
-     ;; gtags
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
-   ;; packages then consider to create a layer, you can also put the
-   ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(idris-mode key-chord rust-mode racer flycheck-rust)
-   ;; A list of packages and/or extensions that will not be install and loaded.
+   ;; packages, then consider creating a layer. You can also put the
+   ;; configuration in `dotspacemacs/user-config'.
+   dotspacemacs-additional-packages '()
+   ;; A list of packages that cannot be updated.
+   dotspacemacs-frozen-packages '()
+   ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '()
-   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
-   ;; are declared in a layer which is not a member of
-   ;; the list `dotspacemacs-configuration-layers'
-   dotspacemacs-delete-orphan-packages t
+   ;; Defines the behaviour of Spacemacs when installing packages.
+   ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
+   ;; `used-only' installs only explicitly used packages and uninstall any
+   ;; unused packages as well as their unused dependencies.
+   ;; `used-but-keep-unused' installs only the used packages but won't uninstall
+   ;; them if they become unused. `all' installs *all* packages supported by
+   ;; Spacemacs and never uninstall them. (default is `used-only')
    dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
   "Initialization function.
 This function is called at the very startup of Spacemacs initialization
-before layers configuration."
+before layers configuration.
+You should not put any user code in there besides modifying the variable
+values."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
@@ -145,19 +127,14 @@ before layers configuration."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-light
-                         solarized-dark
-                         spacemacs-light
-                         spacemacs-dark
-                         leuven
-                         monokai
-                         zenburn)
-   ;; If non nil the cursor color matches the state color.
+   dotspacemacs-themes '(spacemacs-dark
+                         spacemacs-light)
+   ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("DejaVu Sans Mono"
-                               :size 18
+   dotspacemacs-default-font '("Source Code Pro"
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -334,141 +311,6 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   )
-(setq-default dotspacemacs-configuration-layers
-              '(auto-completion
-                (haskell :variables haskell-completion-backend 'intero)))
-;; Some of these are courtesy of https://github.com/lepisma/rogue/blob/75ab1c3422b409f41daa4c003b931e869eed0914/.spacemacs
-
-;; Hooks
-(defun add-hooks (hooks fun)
-  "Add FUN to all the HOOKS."
-  (dolist (hook hooks)
-    (add-hook hook fun)))
-
-(add-hooks '(text-mode-hook
-             prog-mode-hook
-             ranger-mode-hook
-             ibuffer-mode-hook
-             comint-mode-hook)
-           (lambda () (setq line-spacing 0.1)))
-
-(add-hooks '(org-agenda-mode-hook)
-           (lambda () (setq line-spacing 0.2)))
-
-(with-eval-after-load 'org
-  (setq org-startup-indented t
-        org-clock-idle-time 5
-        ;; org-bullets-bullet-list '("#")
-        ;; org-ellipsis "  "
-        org-pretty-entities t
-        org-hide-emphasis-markers t
-        org-agenda-block-separator ""
-        org-fontify-whole-heading-line t
-        org-fontify-done-headline t
-        org-fontify-quote-and-verse-blocks t)
-  
-  ;; Resume clocking task when emacs is restarted
-  (org-clock-persistence-insinuate)
-  ;; Save the running clock and all clock history when exiting Emacs, load it on startup
-  (setq org-clock-persist t)
-  ;; Resume clocking task on clock-in if the clock is open
-  (setq org-clock-in-resume t)
-  ;; Do not prompt to resume an active clock, just resume it
-  (setq org-clock-persist-query-resume nil)
-  ;; Show lot of clocking history so it's easy to pick items off the `C-c I` list
-  (setq org-clock-history-length 23)
-
-  ;; Change tasks to whatever when clocking in
-  (setq org-clock-in-switch-to-state "NEXT")
-  ;; Save clock data and state changes and notes in the LOGBOOK drawer
-  (setq org-clock-into-drawer t)
-  ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks
-  ;; with 0:00 duration
-  (setq org-clock-out-remove-zero-time-clocks t)
-  ;; Clock out when moving task to a done state
-  (setq org-clock-out-when-done t)
-  ;; Enable auto clock resolution for finding open clocks
-  (setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
-  ;; Include current clocking task in clock reports
-  (setq org-clock-report-include-clocking-task t)
-  ;; use pretty things for the clocktable
-  (setq org-pretty-entities t)
-  (defun eos/org-clock-in ()
-    (interactive)
-    (org-clock-in '(4)))
-
-  (global-set-key (kbd "C-c I") #'eos/org-clock-in)
-  (global-set-key (kbd "C-c O") #'org-clock-out)
-
-
-(setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
-
-(setq org-todo-keyword-faces
-      (quote (("TODO" :foreground "red" :weight bold)
-              ("NEXT" :foreground "blue" :weight bold)
-              ("DONE" :foreground "forest green" :weight bold)
-              ("WAITING" :foreground "orange" :weight bold)
-              ("HOLD" :foreground "magenta" :weight bold)
-              ("CANCELLED" :foreground "forest green" :weight bold)
-              ("MEETING" :foreground "forest green" :weight bold)
-              ("PHONE" :foreground "forest green" :weight bold))))
-
-
-;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
-(setq org-capture-templates
-      (quote (("t" "todo" entry (file "~/Dropbox/org/notes.org")
-               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("r" "respond" entry (file "~/Dropbox/org/notes.org")
-               "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-              ("n" "note" entry (file "~/Dropbox/org/notes.org")
-               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
-               "* %?\n%U\n" :clock-in t :clock-resume t)
-              ("w" "org-protocol" entry (file "~/Dropbox/org/notes.org")
-               "* TODO Review %c\n%U\n" :immediate-finish t)
-              ("m" "Meeting" entry (file "~/Dropbox/org/notes.org")
-               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-              ("p" "Phone call" entry (file "~/Dropbox/org/notes.org")
-               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-              ("h" "Habit" entry (file "~/Dropbox/org/notes.org")
-               "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
-
-
-; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                 (org-agenda-files :maxlevel . 9))))
-
-;; Remove empty LOGBOOK drawers on clock out
-(defun bh/remove-empty-drawer-on-clock-out ()
-  (interactive)
-  (save-excursion
-    (beginning-of-line 0)
-    (org-remove-empty-drawer-at "LOGBOOK" (point))))
-
-(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
-
-  )
-
-;; (setq cedille-path "/Users/bkeller/src/cedille")
-;; (add-to-list 'load-path cedille-path)
-;; (require 'cedille-mode)
-(cond
- ((string-equal system-type "darwin")
-  (progn (setq TeX-view-program-selection '((output-pdf "Skim")))))
- ((string-equal system-type "gnu/linux")
-  (progn (setq TeX-view-program-selection '((output-pdf "Okular"))))))
-(setq TeX-source-correlate-mode t)
-(setq TeX-source-correlate-start-server t)
-(setq TeX-source-correlate-method 'synctex)
-(setq TeX-view-program-list
-      '(("Okular" "okular --unique %o#src:%n`pwd`/./%b")
-        ("Skim" "displayline -b -g %n %o %b")
-        ("Zathura"
-         ("zathura %o"
-          (mode-io-correlate
-           " --synctex-forward %n:0:%b -x \"emacsclient +%{line} %{input}\"")))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -477,37 +319,12 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   (quote
-    ("~/Dropbox/org/todo.org" "~/Dropbox/org/the-knowledge.org" "~/Dropbox/org/home.org" "~/Dropbox/org/work.org" "~/Dropbox/org/ph_vs.org" "~/Dropbox/org/notes.org" "~/Dropbox/org/neustrom.org")))
- '(org-entities-user
-   (quote
-    (("naturals" "\\mathbb{N}" t "&naturals;" "N" "N" "ℕ")
-     ("integers" "\\mathbb{Z}" t "&integers;" "Z" "Z" "ℤ")
-     ("rationals" "\\mathbb{Q}" t "&Qopf;" "Q" "Q" "ℚ")
-     ("reals" "\\mathbb{R}" t "&reals;" "R" "R" "R")
-     ("complex" "\\mathbb{C}" t "&complexes;" "C" "C" "ℂ")
-     ("qed" "\\qed" t "&#8718;" "[]" "[]" "∎")
-     ("cala" "\\mathcal{A}" nil "&#119860;" "A" "A" "𝐴"))))
- '(org-latex-pdf-process
-   (quote
-    ("xelatex -interaction nonstopmode -output-directory %o %f" "biber %b" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f")))
- '(org-pretty-entities t)
  '(package-selected-packages
    (quote
-    (csv-mode lv slime-company slime common-lisp-snippets transient geiser helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-statistics company-cabal company-c-headers company-auctex company-anaconda auto-yasnippet ac-ispell auto-complete yaml-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic powerline pos-tip purescript-mode dash-functional org-category-capture alert log4e gntp flycheck prop-menu hydra parent-mode projectile pkg-info epl request haml-mode gitignore-mode flx magit magit-popup git-commit ghub treepy graphql with-editor smartparens iedit anzu evil goto-chg highlight diminish ghc haskell-mode yasnippet company-math math-symbol-lists company markdown-mode rust-mode bind-map bind-key packed helm avy helm-core popup async f s auctex-latexmk ws-butler winum which-key web-mode volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit spaceline solarized-theme smeargle slim-mode scss-mode sass-mode restart-emacs rainbow-delimiters racer pug-mode psci psc-ide popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-mime org-download org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative link-hint less-css-mode key-chord intero indent-guide idris-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-hoogle helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag haskell-snippets google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump disaster define-word company-ghci company-ghc company-coq column-enforce-mode cmm-mode cmake-mode clean-aindent-mode clang-format cargo auto-highlight-symbol auto-compile auctex aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
-;;  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+    (orgit org-projectile org-pomodoro alert log4e markdown-toc magit-gitflow magit-popup helm-gitignore git-timemachine evil-magit magit git-commit smeargle org-category-capture org-present gntp org-mime org-download mmm-mode markdown-mode htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode transient git-messenger git-link gh-md with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(proof-eager-annotation-face ((t (:background "medium blue"))))
- '(proof-error-face ((t (:background "dark red"))))
- '(proof-warning-face ((t (:background "indianred3")))))
+ )
