@@ -33,6 +33,7 @@ Plug 'idris-hackers/idris-vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'vim-airline/vim-airline'
 Plug 'altercation/vim-colors-solarized'
+Plug 'Valloric/YouCompleteMe'
 "Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
@@ -184,8 +185,6 @@ noremap L $
 inoremap fd <esc>
 "inoremap <esc> <nop>
 
-" Special rules for python
-au Filetype python setl et ts=4 sw=4
 
 " Vimscript file settings ---------------------- {{{
 augroup filetype_vim
@@ -269,3 +268,6 @@ nnoremap <leader>dark :set background=dark<cr>
 nnoremap <leader>light :set background=light<cr>
 
 let g:python_mode_python = 'python3'
+
+" Special rules for python
+au Filetype python setl et ts=4 sw=4
