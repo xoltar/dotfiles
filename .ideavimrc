@@ -75,9 +75,6 @@ nnoremap <silent> <Leader>t :NERDTreeFocus<CR>
 set showcmd
 
 
-noremap ; :
-"since I don't actually use semicolon at all.. noremap : ;
-
 noremap <leader>h :wincmd h<CR>
 noremap <leader>j :wincmd j<CR>
 noremap <leader>k :wincmd k<CR>
@@ -120,8 +117,8 @@ vnoremap <Leader>P "+P
 "leader-o opens with ctrlp"
 noremap <Leader>o :tabnew<cr>:CtrlP<cr>
 
-"leader-w saves"
-nnoremap <Leader>w :w<CR>
+"spacemacs save"
+nnoremap <Leader>fs :w<CR>
 
 "leader-leader enters visual line mode"
 nnoremap <Leader><Leader> V
@@ -165,7 +162,7 @@ vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
 noremap H ^
 noremap L $
 
-inoremap jk <esc>
+inoremap fd <esc>
 "inoremap <esc> <nop>
 
 " Vimscript file settings ---------------------- {{{
