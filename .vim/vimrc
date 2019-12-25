@@ -94,8 +94,8 @@ set smartcase
 set ignorecase
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](usr|target|javascripts|dist|build|_build|_site|_cache)$',
-  \ 'file': '\v\.(zip|jar|class|exe|o|hi|so|dll|ibc|min\.js)$'
+  \ 'dir':  '\v[\/](usr|target|javascripts|dist|build|_build|_site|_cache|data|task|garbage.*|__pycache__)$',
+  \ 'file': '\v\.(pyc|zip|jar|class|exe|o|hi|so|dll|ibc|min\.js)$'
   \ }
 
 set number
@@ -239,30 +239,35 @@ augroup END
 noremap ss :write<cr>
 " }}}
 
-if has("gui_running")
-  colorscheme solarized
-  if has("gui_gtk2")
-    set guifont=Inconsolata\ Medium\ 14
-  elseif has("gui_photon")
-    set guifont=Courier\ New:s11
-  elseif has("gui_kde")
-    set guifont=Courier\ New/11/-1/5/50/0/0/0/1/0
-  elseif has("x11")
-    set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
-  elseif has("gui_macvim")
-    set guifont=Menlo\ Regular:h18
-    set background=dark
-    colorscheme solarized
-  else
-    set guifont=Consolas:h14:cDEFAULT
-    set background=dark
-    colorscheme solarized
-  endif
-else
-  highlight Normal ctermbg=black
-  set background=dark
+"if has("gui_running")
+  "colorscheme solarized
+  "if has("gui_gtk2")
+    "set guifont=Inconsolata\ Medium\ 14
+  "elseif has("gui_photon")
+    "set guifont=Courier\ New:s11
+  "elseif has("gui_kde")
+    "set guifont=Courier\ New/11/-1/5/50/0/0/0/1/0
+  "elseif has("x11")
+    "set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
+  "elseif has("gui_macvim")
+    "set guifont=Menlo\ Regular:h18
+    "set background=dark
+    "colorscheme solarized
+  "else
+    "set guifont=Consolas:h14:cDEFAULT
+    "set guifont=FiraCode:h20
+    "set background=dark
+    "colorscheme solarized
+  "endif
+"else
+  "highlight Normal ctermbg=black
+  "set background=dark
 
-endif
+"endif
+
+set guifont=FiraCode:h18
+set background=dark
+colorscheme solarized
 
 nnoremap <leader>work :cd %:p:h
 
