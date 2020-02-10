@@ -44,6 +44,9 @@ source $ZSH/oh-my-zsh.sh
 #[ -s "$SWIVM_DIR/swivm.sh" ] && . "$SWIVM_DIR/swivm.sh"  # This loads swivm
 
 
+if [[ -f ~/.zsh-local ]]; then
+	  . ~/.zsh-local
+fi
 
 
 
