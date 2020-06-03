@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     octave
      idris
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -57,7 +58,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(org-fragtog)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -135,8 +136,8 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+   dotspacemacs-default-font '("Fira Code"
+                               :size 18
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -317,8 +318,25 @@ you should place your code here."
   (global-set-key (kbd "<mouse-4>") 'down-slightly)
   (global-set-key (kbd "<mouse-5>") 'up-slightly)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  )
 
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (setq luamagick '(luamagick :programs ("lualatex" "convert")
+                                          :description "pdf > png"
+                                          :message "you need to install lualatex and imagemagick."
+                                          :use-xcolor t
+                                          :image-input-type "pdf"
+                                          :image-output-type "png"
+                                          :image-size-adjust (1.0 . 1.0)
+                                          :latex-compiler ("lualatex -interaction nonstopmode -output-directory %o %f")
+                                          :image-converter ("convert -density %D -trim -antialias %f -quality 100 %O")))
+
+              (add-to-list 'org-preview-latex-process-alist luamagick)
+              (setq org-preview-latex-default-process 'luamagick)
+              (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+              ))
+  (add-hook 'org-mode-hook 'org-fragtog-mode)
+)
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
@@ -327,18 +345,21 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-entities-user
-   '(("naturals" "\\mathbb{N}" t "&naturals;" "N" "N" "ℕ")
+   (quote
+    (("naturals" "\\mathbb{N}" t "&naturals;" "N" "N" "ℕ")
      ("integers" "\\mathbb{Z}" t "&integers;" "Z" "Z" "ℤ")
      ("rationals" "\\mathbb{Q}" t "&Qopf;" "Q" "Q" "ℚ")
      ("reals" "\\mathbb{R}" t "&reals;" "R" "R" "R")
      ("complex" "\\mathbb{C}" t "&complexes;" "C" "C" "ℂ")
      ("qed" "\\qed" t "&#8718;" "[]" "[]" "∎")
-     ("cala" "\\mathcal{A}" nil "&#119860;" "A" "A" "𝐴")))
+     ("cala" "\\mathcal{A}" nil "&#119860;" "A" "A" "𝐴"))))
  '(org-latex-pdf-process
-   '("xelatex -interaction nonstopmode -output-directory %o %f" "biber %b" "xelatex -interaction nonstopmode -output-directory %o %f" "xelatex -interaction nonstopmode -output-directory %o %f"))
+   (quote
+    ("lualatex -interaction nonstopmode -output-directory %o %f" "biber %b" "lualatex -interaction nonstopmode -output-directory %o %f" "lualatex -interaction nonstopmode -output-directory %o %f")))
  '(org-pretty-entities t)
  '(package-selected-packages
-   '(idris-mode prop-menu auctex-latexmk auctex yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic orgit org-projectile org-pomodoro alert log4e markdown-toc magit-gitflow magit-popup helm-gitignore git-timemachine evil-magit magit git-commit smeargle org-category-capture org-present gntp org-mime org-download mmm-mode markdown-mode htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode transient git-messenger git-link gh-md with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+   (quote
+    (org-fragtog powerline spinner hydra lv parent-mode projectile pkg-info epl flx highlight smartparens iedit anzu evil goto-chg undo-tree bind-map bind-key packed helm avy helm-core popup async f s dash idris-mode prop-menu auctex-latexmk auctex yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic orgit org-projectile org-pomodoro alert log4e markdown-toc magit-gitflow magit-popup helm-gitignore git-timemachine evil-magit magit git-commit smeargle org-category-capture org-present gntp org-mime org-download mmm-mode markdown-mode htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode transient git-messenger git-link gh-md with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
