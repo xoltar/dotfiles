@@ -527,12 +527,15 @@ you should place your code here."
   ;https://orgmode.org/worg/org-contrib/org-protocol.html#org50f834d
   ;https://github.com/sprig/org-capture-extension/issues/72
   (setq org-capture-templates `(
-                                ("p" "Protocol" entry (file+headline ,(concat org-directory "notes.org") "Inbox")
+                                ("p" "Protocol" entry (file+headline ,(concat org-directory "inbox.org") "Inbox")
                                  "* %^{Title}\nSource: [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"
                                  )
-                                ("L" "Protocol Link" entry (file+headline ,(concat org-directory "notes.org") "Inbox")
+                                ("L" "Protocol Link" entry (file+headline ,(concat org-directory "inbox.org") "Inbox")
                                  "* %? [[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
-                                ))
+                                ("t" "Todo" entry (file+headline ,(concat org-directory "inbox.org") "Tasks")
+                                 "* TODO %?\n  %i\n  %a")
+                                ("j" "Journal" entry (file+datetree ,(concat org-directory "journal.org"))
+                                 "* %?\nEntered on %U\n  %i\n  %a")))
   ;; (add-hook 'org-mode-hook
   ;;           (lambda ()
   ;;             (setq luamagick '(luamagick :programs ("lualatex" "convert")
