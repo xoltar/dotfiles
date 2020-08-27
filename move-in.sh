@@ -14,6 +14,6 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 git clone https://github.com/syl20bnr/spacemacs .emacs.d
 ln -s ${dotfiles}/.spacemacs.d
 mkdir -p .emacs.d/private/org-roam
-ln -s ${doftiles}/org-roam-packages.el .emacs.d/private/org-roam/packages.el
+ln -s ${dotfiles}/org-roam-packages.el .emacs.d/private/org-roam/packages.el
 
 
