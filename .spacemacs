@@ -32,10 +32,13 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(javascript
+     csv
+     html
      agda
      bibtex
      deft
+     elfeed
      ;; octave
      idris
      ;; ----------------------------------------------------------------
@@ -52,6 +55,7 @@ This function should only modify configuration layer settings."
      latex
      markdown
      org
+     org-roam
      python
      treemacs
      ;; (shell :variables
@@ -518,6 +522,7 @@ you should place your code here."
   ; https://orgmode.org/worg/org-contrib/org-protocol.html#orgheadline8
   (add-to-list 'load-path "~/Library/Mobile Documents/com~apple~ScriptEditor2/Documents/org-protocol.app")
   (require 'org-protocol)
+  (require 'org-roam-protocol)
   (defun transform-square-brackets-to-round-ones(string-to-transform)
     "Transforms [ into ( and ] into ), other chars left unchanged."
     (concat 
@@ -536,6 +541,7 @@ you should place your code here."
                                  "* TODO %?\n  %i\n  %a")
                                 ("j" "Journal" entry (file+datetree ,(concat org-directory "journal.org"))
                                  "* %?\nEntered on %U\n  %i\n  %a")))
+  (setq org-refile-use-outline-path 'file)
   ;; (add-hook 'org-mode-hook
   ;;           (lambda ()
   ;;             (setq luamagick '(luamagick :programs ("lualatex" "convert")
@@ -556,6 +562,10 @@ you should place your code here."
   ;;                                                       ;; ("begin" "$1" "$" "$$" "\\(" "\\[")
   ;;                                                       ))))
   ;; (add-hook 'org-mode-hook 'org-fragtog-mode)
+  
+  (elfeed-org)
+  (setq rmh-elfeed-org-files
+          (list "~/Dropbox/org/feeds.org"))
 )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -612,7 +622,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-pretty-entities t)
  '(package-selected-packages
    (quote
-    (org-ref pdf-tools key-chord ivy tablist helm-bibtex bibtex-completion parsebib biblio biblio-core deft org-fragtog powerline spinner hydra lv parent-mode projectile pkg-info epl flx highlight smartparens iedit anzu evil goto-chg undo-tree bind-map bind-key packed helm avy helm-core popup async f s dash idris-mode prop-menu auctex-latexmk auctex yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic orgit org-projectile org-pomodoro alert log4e markdown-toc magit-gitflow magit-popup helm-gitignore git-timemachine evil-magit magit git-commit smeargle org-category-capture org-present gntp org-mime org-download mmm-mode markdown-mode htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode transient git-messenger git-link gh-md with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (tide typescript-mode tern nodejs-repl livid-mode skewer-mode js2-refactor yasnippet multiple-cursors js2-mode js-doc import-js grizzl helm-gtags ggtags dap-mode posframe lsp-treemacs bui lsp-mode counsel-gtags counsel swiper company add-node-modules-path org-ref pdf-tools key-chord ivy tablist helm-bibtex bibtex-completion parsebib biblio biblio-core deft org-fragtog powerline spinner hydra lv parent-mode projectile pkg-info epl flx highlight smartparens iedit anzu evil goto-chg undo-tree bind-map bind-key packed helm avy helm-core popup async f s dash idris-mode prop-menu auctex-latexmk auctex yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic orgit org-projectile org-pomodoro alert log4e markdown-toc magit-gitflow magit-popup helm-gitignore git-timemachine evil-magit magit git-commit smeargle org-category-capture org-present gntp org-mime org-download mmm-mode markdown-mode htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode transient git-messenger git-link gh-md with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
