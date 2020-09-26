@@ -9,3 +9,4 @@
 *.a
 *.errors
 .emacs.d/elpa
+.vim/plugged
