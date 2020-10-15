@@ -94,7 +94,7 @@ set smartcase
 set ignorecase
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](usr|target|javascripts|dist|build|_build|_site|_cache|data|task|garbage.*|__pycache__)$',
+  \ 'dir':  '\v[\/](usr|target|javascripts|dist|build|_build|_site|_cache|data|task|garbage.*|__pycache__|data|runs)$',
   \ 'file': '\v\.(pyc|zip|jar|class|exe|o|hi|so|dll|ibc|min\.js)$'
   \ }
 
