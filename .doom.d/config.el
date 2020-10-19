@@ -59,3 +59,5 @@
 
 (display-line-numbers-mode)
 (setq display-line-numbers 'relative)
+(setq conda-anaconda-home (expand-file-name "~/opt/anaconda3"))
+(setq conda-env-home-directory (expand-file-name "~/opt/anaconda3"))
