@@ -43,6 +43,7 @@ Plug 'tjdevries/lsp_extensions.nvim'
 " Autocompletion framework for built-in LSP
 Plug 'nvim-lua/completion-nvim'
 
+Plug 'arcticicestudio/nord-vim'
 " No longer needed
 "" Diagnostic navigation and settings for built-in LSP
 "Plug 'nvim-lua/diagnostic-nvim'
@@ -279,7 +280,7 @@ noremap ss :write<cr>
 
 set guifont=FiraCode:h18
 set background=dark
-colorscheme solarized
+colorscheme nord
 
 nnoremap <leader>work :cd %:p:h
 

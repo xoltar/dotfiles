@@ -70,3 +70,4 @@ export RUST_BACKTRACE=1
 if [[ -f ~/.zshenv-local ]]; then
 	  . ~/.zshenv-local
 fi
+source "$HOME/.cargo/env"
