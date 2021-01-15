@@ -44,6 +44,8 @@ Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'nvim-lua/completion-nvim'
 
 Plug 'arcticicestudio/nord-vim'
+Plug 'dyng/ctrlsf.vim'
+
 " No longer needed
 "" Diagnostic navigation and settings for built-in LSP
 "Plug 'nvim-lua/diagnostic-nvim'
@@ -200,6 +202,15 @@ noremap L $
 inoremap fd <esc>
 "inoremap <esc> <nop>
 
+"CtrlSF bindings
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 " Vimscript file settings ---------------------- {{{
 augroup filetype_vim
