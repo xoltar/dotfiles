@@ -336,6 +336,11 @@ end
 nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
 EOF
 
+" Enable C++
+lua << EOF 
+require'lspconfig'.ccls.setup{}
+EOF 
+
 " Better display for messages
 set cmdheight=2
 
