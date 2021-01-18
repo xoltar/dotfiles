@@ -63,7 +63,7 @@ export EDITOR=nvim
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-export PATH=$PATH:~/.local/bin
+export PATH=~/.local/bin:$PATH
 
 export RUST_BACKTRACE=1
 
