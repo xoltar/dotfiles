@@ -28,7 +28,10 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFocus' }
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
+Plug 'lfilho/cosco.vim'
 "Plug 'idris-hackers/idris-vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'vim-airline/vim-airline'
@@ -47,6 +50,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'AndrewRadev/splitjoin.vim'
 
 let g:UltiSnipsExpandTrigger="<tab>"  " use <Tab> to trigger autocompletion
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
@@ -125,6 +129,9 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
 set colorcolumn=80
+
+set incsearch
+set hlsearch
 
 "no idea what there are but they make 'vapRETgq' select 
 "the current paragraph and reformat it
@@ -414,4 +421,10 @@ endfunction
 "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+
+
+autocmd FileType javascript,css,rs,cpp nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
+autocmd FileType javascript,css,rs,cpp imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
+
 
