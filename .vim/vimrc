@@ -424,7 +424,7 @@ endfunction
 
 
 
-autocmd FileType javascript,css,rs,cpp nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
-autocmd FileType javascript,css,rs,cpp imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
+autocmd FileType javascript,css,rust,cpp nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
+autocmd FileType javascript,css,rust,cpp imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
 
 
