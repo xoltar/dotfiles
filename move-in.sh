@@ -5,6 +5,8 @@ ln -s ${dotfiles}/.vim
 ln -s ${dotfiles}/vimrc_link.vim .vim
 mkdir -p .config/nvim
 ln -s ${dotfiles}/nvim-init.vim .config/nvim/init.vim
+ln -s ${dotfiles}/UltiSnips .config/nvim
+ln -s ${dotfiles}/UltiSnips .vim
 ln -s ${dotfiles}/.ideavimrc
 ln -s ${dotfiles}/.gitconfig
 
