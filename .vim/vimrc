@@ -31,6 +31,8 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'lfilho/cosco.vim'
 "Plug 'idris-hackers/idris-vim'
 Plug 'liuchengxu/vim-which-key'
@@ -232,8 +234,11 @@ vmap <silent> <expr> p <sid>Repl()
 :iabbrev adn and
 :iabbrev tihs this
 :iabbrev teh the
-:iabbrev hif Hi Folks
-
+:iabbrev waht what
+:iabbrev hif Hi folks,
+:iabbrev thb Thanks,<cr>Bryn
+:iabbrev @@    xoltar@xoltar.org
+:iabbrev ccopy Copyright 2021 Bryn Keller, all rights reserved.
 "Because Spacemacs
 noremap <leader>fe :e<cr>
 noremap <leader>ff :CtrlPMixed<cr>
@@ -243,8 +248,9 @@ noremap <leader>bb :CtrlPBuffer<cr>
 noremap <leader>wd :hide<cr>
 noremap <leader>w- :split<cr>
 noremap <leader>w/ :vsplit<cr>
-noremap <leader>fed ~/.vim/vimrc<cr>
-noremap <leader>feR :source ~/.vim/vimrc<cr>
+noremap <leader>fed :vsplit ~/.vim/vimrc<cr>
+noremap <leader>fev :vsplit $MYVIMRC<cr>
+noremap <leader>feR :source $MYVIMRC<cr>
 
 noremap H ^
 noremap L $
@@ -280,8 +286,6 @@ augroup END
 " c++ file settings ---------------------- {{{
 augroup filetype_cpp
   autocmd!
-  autocmd FileType cpp :iabbrev <buffer> ret return;<left>
-  autocmd FileType cpp :iabbrev <buffer> return NOPENOPENOPE
   autocmd FileType cpp :iabbrev <buffer> reic reinterpret_cast<><left><left><right>
   "autocmd FileType cpp setlocal foldmethod=syntax
 augroup END
@@ -424,7 +428,10 @@ endfunction
 
 
 
-autocmd FileType javascript,css,rust,cpp nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
-autocmd FileType javascript,css,rust,cpp imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
+augroup semicolon
+	autocmd!
+	autocmd FileType javascript,css,rust,cpp nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
+	autocmd FileType javascript,css,rust,cpp imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
+augroup end
 
 
