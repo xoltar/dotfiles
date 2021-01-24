@@ -1,4 +1,3 @@
-
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -24,72 +23,52 @@ call plug#begin('~/.vim/plugged')
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 "
 " " On-demand loading
+if exists('g:vscode')
+    " VSCode extension
+else
+    " ordinary neovim
+	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFocus' }
+	Plug 'kien/ctrlp.vim'
+	Plug 'liuchengxu/vim-which-key'
+	Plug 'vim-airline/vim-airline'
+	Plug 'altercation/vim-colors-solarized'
+	Plug 'lfilho/cosco.vim'
+	"Plug 'idris-hackers/idris-vim'
+	"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	" Collection of common configurations for the Nvim LSP client
+	Plug 'neovim/nvim-lsp'
+
+	" Extensions to built-in LSP, for example, providing type inlay hints
+	Plug 'tjdevries/lsp_extensions.nvim'
+
+	" Autocompletion framework for built-in LSP
+	Plug 'nvim-lua/completion-nvim'
+
+	Plug 'arcticicestudio/nord-vim'
+	Plug 'dyng/ctrlsf.vim'
+	Plug 'junegunn/goyo.vim'
+	Plug 'junegunn/limelight.vim'
+	autocmd! User GoyoEnter Limelight
+	autocmd! User GoyoLeave Limelight!
+	"Plug 'vim-pandoc/vim-pandoc-syntax'
+	" if you don't have nodejs and yarn, use pre build
+	Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
+	Plug 'airblade/vim-gitgutter'
+endif
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeFocus' }
-Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'lfilho/cosco.vim'
-"Plug 'idris-hackers/idris-vim'
-Plug 'liuchengxu/vim-which-key'
-Plug 'vim-airline/vim-airline'
-Plug 'altercation/vim-colors-solarized'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Collection of common configurations for the Nvim LSP client
-Plug 'neovim/nvim-lsp'
-
-" Extensions to built-in LSP, for example, providing type inlay hints
-Plug 'tjdevries/lsp_extensions.nvim'
-
-" Autocompletion framework for built-in LSP
-Plug 'nvim-lua/completion-nvim'
-
-Plug 'arcticicestudio/nord-vim'
-Plug 'dyng/ctrlsf.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'AndrewRadev/splitjoin.vim'
-
-let g:UltiSnipsExpandTrigger="<tab>"  " use <Tab> to trigger autocompletion
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-" tabular plugin is used to format tables
 Plug 'godlygeek/tabular'
 " JSON front matter highlight plugin
 Plug 'elzr/vim-json'
 Plug 'plasticboy/vim-markdown'
 
-" disable header folding
-let g:vim_markdown_folding_disabled = 1
-
-" do not use conceal feature, the implementation is not so good
-let g:vim_markdown_conceal = 0
-
-" disable math tex conceal feature
-let g:tex_conceal = ""
-let g:vim_markdown_math = 1
-
-" support front matter of various format
-let g:vim_markdown_frontmatter = 1  " for YAML format
-let g:vim_markdown_toml_frontmatter = 1  " for TOML format
-let g:vim_markdown_json_frontmatter = 1  " for JSON format
-
-"Plug 'vim-pandoc/vim-pandoc-syntax'
-" if you don't have nodejs and yarn, use pre build
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
-
-" do not close the preview tab when switching to other buffers
-let g:mkdp_auto_close = 0
-nnoremap <M-m> :MarkdownPreview<CR>
 
 "augroup pandoc_syntax
     "au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
@@ -99,7 +78,7 @@ nnoremap <M-m> :MarkdownPreview<CR>
 "" Diagnostic navigation and settings for built-in LSP
 "Plug 'nvim-lua/diagnostic-nvim'
 
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 "
 "Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
@@ -122,6 +101,30 @@ let g:deoplete#enable_at_startup = 1
 "
 " " Initialize plugin system
 call plug#end()
+
+let g:UltiSnipsExpandTrigger="<tab>"  " use <Tab> to trigger autocompletion
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+" disable header folding
+let g:vim_markdown_folding_disabled = 1
+
+" do not use conceal feature, the implementation is not so good
+let g:vim_markdown_conceal = 0
+
+" disable math tex conceal feature
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+
+" support front matter of various format
+let g:vim_markdown_frontmatter = 1  " for YAML format
+let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+let g:vim_markdown_json_frontmatter = 1  " for JSON format
+
+
+" do not close the preview tab when switching to other buffers
+let g:mkdp_auto_close = 0
+nnoremap <M-m> :MarkdownPreview<CR>
 
 filetype plugin indent on
 
@@ -343,9 +346,6 @@ noremap ss :write<cr>
 
 "endif
 
-set guifont=FiraCode:h18
-set background=dark
-colorscheme nord
 
 nnoremap <leader>work :cd %:p:h
 
@@ -434,4 +434,11 @@ augroup semicolon
 	autocmd FileType javascript,css,rust,cpp imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
 augroup end
 
-
+if exists("g:vscode")
+    " VSCode extension
+else
+    " ordinary neovim
+	set guifont=FiraCode:h18
+	set background=dark
+	colorscheme nord
+endif
