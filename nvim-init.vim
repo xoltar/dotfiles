@@ -34,6 +34,9 @@ else
 	" Show diagnostic popup on cursor hold
 	autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
+	" Formatting
+	nnoremap <silent> <space>cf  <cmd>lua vim.lsp.buf.formatting()<CR>
+
 	" have a fixed column for the diagnostics to appear in
 	" this removes the jitter when warnings/errors flow in
 	set signcolumn=yes
