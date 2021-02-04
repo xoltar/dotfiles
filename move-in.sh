@@ -30,3 +30,7 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 rm -rf ~/.doom.d
 ln -s src/dotfiles/.doom.d
 ~/.emacs.d/bin/doom doctor # Tell us what dependencies we are missing
+
+# i3
+mkdir -p ~/.config/i3
+ln -s ${dotfiles}/i3_config ~/.config/i3/config
