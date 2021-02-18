@@ -3,6 +3,8 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+(use-package! f)
+
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -31,17 +33,40 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
 
+(require 'tramp)
+(setq tramp-verbose 6)
+(add-to-list 'tramp-connection-properties
+             (list (regexp-quote "/sshx:rumi:")
+                   "remote-shell" "/usr/bin/zsh"))
+(add-to-list 'tramp-connection-properties
+             (list (regexp-quote "/sshx:bcl-gpu13:")
+                   "remote-shell" "/usr/bin/zsh"))
+(require 'lsp)
+(lsp-register-client
+ (make-lsp-client :new-connection (lsp-tramp-connection "ccls")
+                     :major-modes '(c++-mode)
+                     :remote? t
+                     :server-id 'ccls-remote)
+ )
+;(setq tramp-shell-prompt-pattern \\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
+
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
+(if (f-exists? "~/Nextcloud/Dropbox/org")
+  (setq org-directory "~/Nextcloud/Dropbox/org")
+  ;; doesn't work, even if tramp works
+  ;(setq org-directory "/sshx:rumi:Nextcloud/Dropbox/org"))
+  (setq org-directory "~/org"))
+
 (setq
- org-directory "~/Nextcloud/Dropbox/org/"
- deft-directory "~/Nextcloud/Dropbox/org/")
+ deft-directory org-directory)
 
 (use-package org-journal
       :bind
       ("C-c n j" . org-journal-new-entry)
       :custom
-      (org-journal-dir "~/Nextcloud/Dropbox/org/roam/journal")
+      (org-journal-dir (f-join org-directory "roam" "journal"))
       (org-journal-date-prefix "#+TITLE: ")
       (org-journal-file-format "%Y-%m-%d.org")
       (org-journal-date-format "%A, %d %B %Y")

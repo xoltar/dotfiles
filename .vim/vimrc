@@ -442,7 +442,18 @@ if exists("g:vscode")
     " VSCode extension
 else
     " ordinary neovim
-	set guifont=FiraCode:h18
 	set background=dark
 	colorscheme nord
+	" Color name (:help gui-colors) or RGB color
+	let g:limelight_conceal_guifg = 'DarkGray'
+	let g:limelight_conceal_guifg = '#777777'
+
+	" Default: 0.5
+	let g:limelight_default_coefficient = 0.7
+
+	if has("gui_running")
+	else
+		set guifont=FiraCode:h18
+
+	endif
 endif
