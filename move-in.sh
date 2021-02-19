@@ -9,6 +9,7 @@ ln -s ${dotfiles}/UltiSnips .config/nvim
 ln -s ${dotfiles}/UltiSnips .vim
 ln -s ${dotfiles}/.ideavimrc
 ln -s ${dotfiles}/.gitconfig
+ln -s ${dotfiles}/.tmux.conf
 
 #  ZSH
 #  git clone https://github.com/robbyrussell/oh-my-zsh .oh-my-zsh
