@@ -34,15 +34,10 @@ plugins=(git cabal mvn)
 source $ZSH/oh-my-zsh.sh
 # User configuration
 
-
-
-#[ -s "$SWIVM_DIR/swivm.sh" ] && . "$SWIVM_DIR/swivm.sh"  # This loads swivm
+DISABLE_AUTO_UPDATE="true"
 
 
 if [[ -f ~/.zsh-local ]]; then
 	  . ~/.zsh-local
 fi
-
-
-
 
