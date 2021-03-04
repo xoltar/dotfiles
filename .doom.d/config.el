@@ -67,7 +67,7 @@
  org-agenda-file-regexp  "(\\`[^.].*\\.org'\\|[0-9]+$)" ; so journal files will be searched
  )
 
-(setq ivy-use-selectable-prompt t)
+;(setq ivy-use-selectable-prompt t)
 
 (use-package org-journal
       :bind
