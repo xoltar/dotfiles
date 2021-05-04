@@ -151,3 +151,5 @@
 	insteadOf = https://github.com/
 [url "ssh://git@github.com/"]
 	insteadOf = git://github.com/
+[credential]
+	helper = cache
