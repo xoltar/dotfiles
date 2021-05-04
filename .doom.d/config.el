@@ -82,20 +82,20 @@
       )
     (setq org-journal-enable-agenda-integration t)
 
-(use-package org-roam-server
-  :after (org-roam)
-  :config
-  (setq org-roam-server-host "127.0.0.1"
-        org-roam-server-port 9191
-        org-roam-server-authenticate nil
-        org-roam-server-export-inline-images t
-        org-roam-server-serve-files nil
-        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
-        org-roam-server-network-poll t
-        org-roam-server-network-arrows nil
-        org-roam-server-network-label-truncate t
-        org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20))
+;; (use-package org-roam-server
+;;   :after (org-roam)
+;;   :config
+;;   (setq org-roam-server-host "127.0.0.1"
+;;         org-roam-server-port 9191
+;;         org-roam-server-authenticate nil
+;;         org-roam-server-export-inline-images t
+;;         org-roam-server-serve-files nil
+;;         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+;;         org-roam-server-network-poll t
+;;         org-roam-server-network-arrows nil
+;;         org-roam-server-network-label-truncate t
+;;         org-roam-server-network-label-truncate-length 60
+;;         org-roam-server-network-label-wrap-length 20))
 
 (use-package! org-ref
     :config
@@ -224,3 +224,26 @@
 (setq
         projectile-project-search-path '("~/src/")
  )
+(after! org (setq org-ditaa-jar-path "~/.emacs.d/.local/straight/repos/org-mode/contrib/scripts/ditaa.jar"))
+
+;; (use-package gnuplot
+;;   :defer
+;;   :config
+;;   (setq gnuplot-program "gnuplot"))
+
+; MERMAID
+;; (use-package mermaid-mode
+;;   :defer
+;;   :config
+;;   (setq mermaid-mmdc-location "~/node_modules/.bin/mmdc"
+;;         ob-mermaid-cli-path "~/node_modules/.bin/mmdc"))
+
+; PLANTUML
+(use-package ob-plantuml
+  :ensure nil
+  :commands
+  (org-babel-execute:plantuml)
+  :defer
+  :config
+  (setq org-plantuml-jar-path (expand-file-name "~/.doom.d/plantuml.jar"))
+  (setq plantuml-jar-path (expand-file-name "~/.doom.d/plantuml.jar")))
