@@ -153,3 +153,5 @@
 	insteadOf = git://github.com/
 [credential]
 	helper = cache
+[pull]
+	rebase = true
